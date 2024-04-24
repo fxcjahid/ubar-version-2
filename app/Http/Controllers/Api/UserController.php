@@ -191,8 +191,11 @@ class UserController extends Controller
                 'emergency_number' => 'required|numeric',
                 'email'            => 'required|unique:users,email',
                 'gender'           => 'required',
+                'user_type'        => 'required|in:user,driver',
                 'password'         => 'required|min:4',
+                'profile_pic'      => 'nullable|file',
                 'referred_code'    => ['nullable', 'digits:6', 'exists:users,referral_code'],
+                'term_agreed'      => 'boolean',
             ];
             $msg       = [
                 'first_name.required'       => 'Enter First Name',
@@ -210,9 +213,9 @@ class UserController extends Controller
                 DB::beginTransaction();
 
                 try {
-                    if ($request->file('profile_image')) {
-                        $fileName = '/assets/user/' . uniqid(time()) . '.' . $request->file('profile_image')->extension();
-                        $request->file('profile_image')->move(public_path('assets/user/'), $fileName);
+                    if ($request->file('profile_pic')) {
+                        $fileName = '/assets/user/' . uniqid(time()) . '.' . $request->file('profile_pic')->extension();
+                        $request->file('profile_pic')->move(public_path('assets/user/'), $fileName);
                         $profile = $fileName;
                     } else {
                         $profile = "";
@@ -246,6 +249,7 @@ class UserController extends Controller
                     $input['licence_number']    = $request->licence_number;
                     $input['car_owner_mobile']  = $request->car_owner_mobile;
                     $input['car_model']         = $request->car_model;
+                    $input['car_brand']         = $request->car_brand;
                     $input['car_cc']            = $request->car_cc;
                     $input['car_number']        = $request->car_number;
                     $input['car_register_year'] = $request->car_register_year;
