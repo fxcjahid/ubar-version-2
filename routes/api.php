@@ -102,37 +102,12 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 
-    //############### Driver Process here.....................................
-    Route::post('driver/driver_documnet_upload', [Driver::class, 'driverDocUpload']);
-    Route::get('driver/driver_doc/{driver_id}', [Driver::class, 'driverDoc']);
-    Route::get('driver/driver_profile_get/{driver_id}', [Driver::class, 'getDriverData']);
-    Route::post('driver/profile_update', [Driver::class, 'profileUpdate']);
-    Route::post('driver/promo_code', [Driver::class, 'promoCode']);
-    Route::post('driver/referral_code', [Driver::class, 'refferalCode']);
-
-    Route::get('driver/get_promo_code/{driver_id}', [Driver::class, 'getPromoCode']);
-    Route::get('driver/get_referral_code/{driver_id}', [Driver::class, 'getRefferalCode']);
-
-    Route::get('driver/booking_pending_list/{driver_id}', [Driver::class, 'getPendingList']);
-
-    Route::post('driver/accept_booking', [Driver::class, 'acceptBooking']);
-    Route::post('driver/booking_cancelled', [Driver::class, 'cancelledBooking']);
-
-    Route::post('driver/otp_check', [Driver::class, 'otpCheck']);
-
-    Route::post('driver/confirm_booking', [Driver::class, 'confirmBooking']);
-
-    Route::get('driver/rating/{driver_id}', [Driver::class, 'rating']);
-    Route::post('driver/give_rating_to_user', [Driver::class, 'giveRatingToUser']);
-
-    Route::post('driver/driver_profile_update', [Driver::class, 'driverProfileUpdate']);
-
-    Route::get('driver/previous_booking_list/{driver_id}', [Driver::class, 'getPriviousBookingList']);
+    require_once "api/driver.php";
 
 });
 
 //FEEDBACK CONTROLLER
-Route::post("driver/feedback/create", [FeedBackApiController::class, 'driver_store']);
+
 Route::post("user/feedback/create", [FeedBackApiController::class, 'user_store']);
 
 

@@ -368,63 +368,36 @@ class UserController extends Controller
 
 
     /**
+     * Update user profile information.
+     *
      * @param Request $request
-     * @method use for update profile
+     * @author Fxc Jahid <fxcjahid3@gmail.com>
+     * @return \Illuminate\Http\JsonResponse
      */
     public function profileUpdate(Request $request)
     {
-
-        $userData = User::findOrFail($request->user_id);
-        $rules    = [];
-
-        if ($userData->phone != $request->phone) {
-            $rules['phone'] = 'required|unique:users,phone';
-        }
-        if ($userData->email != $request->email) {
-            $rules['email'] = 'required|unique:users,username';
-        }
-        $rules     = [
+        // Validation rules
+        $rules = [
             'first_name' => 'required',
             'last_name'  => 'required',
-            'city'       => 'required',
-            'user_id'    => 'required',
         ];
-        $msg       = [
-            'first_name.required' => 'Enter First Name',
-            'last_name.required'  => 'Enter Last Name',
-            'city.required'       => 'Enter Your City Name',
-        ];
-        $validator = Validator::make($request->all(), $rules, $msg);
 
+        // Validate the request
+        $validator = Validator::make($request->all(), $rules);
+
+        // If validation fails, return error message
         if ($validator->fails()) {
             return response()->json(['status' => false, 'message' => $validator->errors()->first()]);
-            exit;
-        } else {
-            if ($request->user_id == Auth::user()->id) {
-                $userData->first_name       = $request->first_name;
-                $userData->last_name        = $request->last_name;
-                $userData->phone            = $request->phone;
-                $userData->emergency_number = $request->emergency_number;
-                $userData->name             = $request->first_name . '' . $request->last_name;
-                $userData->username         = $request->email;
-                $userData->address          = $request->city;
-
-                $update = $userData->update();
-            } else {
-                return response()->json(['status' => false, 'message' => 'Something went wrong try again later']);
-                exit;
-            }
-
-        }
-        if ($update) {
-            return response()->json(['status' => 200, 'message' => 'User updated Successfully', 'data' => $userData]);
-            exit;
-        } else {
-            return response()->json(['status' => false, 'message' => 'Something went wrong try again later']);
-            exit;
         }
 
+        // Update user data
+        Auth::user()->update($request->all());
+
+        // Return success response
+        return response()->json(['status' => true, 'message' => 'User updated successfully', 'data' => Auth::user()]);
     }
+
+
 
     /**
      * @method use for get user
