@@ -32,6 +32,7 @@ use App\Http\Controllers\BookingInvoiceController;
 use App\Http\Controllers\Admin\CityAdminPermission;
 use App\Http\Controllers\Admin\CityAgentController;
 use App\Http\Controllers\Admin\CommissionController;
+use App\Http\Controllers\VehiclesDiscountController;
 use App\Http\Controllers\Admin\FareCategoryController;
 use App\Http\Controllers\Admin\ManualBookingController;
 
@@ -296,4 +297,17 @@ Route::prefix('booking')
     ->controller(BookingInvoiceController::class)
     ->group(function () {
         Route::get('invoice/{id}', 'index')->name('invoice');
+    });
+
+/** 
+ * Vehicles Discount
+ * @author Fxc Jahid <fxcjahid3@gmail.com>
+ */
+Route::prefix('vehicles')
+    ->name('admin.vehicles.')
+    ->controller(VehiclesDiscountController::class)
+    ->group(function () {
+        Route::get('list', 'index')->name('list');
+        Route::get('create', 'create')->name('create');
+        Route::post('create', 'store')->name('store');
     });

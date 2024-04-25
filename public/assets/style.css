@@ -3482,3 +3482,29 @@ table.projects tr td:first-child {
 #fare-category-time label {
     display: none;
 }
+
+.vehicles-discount-list,
+.vehicles-discount-created {
+    margin-top: 3.4rem;
+}
+
+.vehicles-discount-created .form-group {
+    margin-bottom: 1.7rem;
+}
+
+.vehicles-discount-created .form-group label {
+    color: #010F58;
+    font-size: 18px;
+}
+
+.vehicles-discount-created .form-group .form-control {
+    padding: .60rem .75rem;
+    height: 100% !important;
+    font-size: 16px;
+}
+
+.vehicles-discount-created .form-group [type="checkbox"] {
+    display: inline-block;
+    width: auto;
+    margin-right: 10px;
+}

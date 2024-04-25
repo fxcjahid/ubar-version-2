@@ -15,14 +15,16 @@ use Illuminate\Support\Facades\Validator;
 class CategoryController extends Controller
 {
     //
-    public function index() {
+    public function index()
+    {
         return view('admin.category.index');
     }
 
     /**
      * @method use for get category list help of ajax
      */
-    public function categoryListAjax(Request $request) {
+    public function categoryListAjax(Request $request)
+    {
         if (isset($_GET['search']['value'])) {
             $search = $_GET['search']['value'];
         } else {
@@ -43,88 +45,98 @@ class CategoryController extends Controller
         $orderType = $_GET['order'][0]['dir'];
         $nameOrder = $_GET['columns'][$_GET['order'][0]['column']]['name'];
 
-        $total = Category::select('categories.*' , 'users.name')
-        ->join('users' , 'categories.created_by' , '=' , 'users.id')
-        ->orWhere(function ($query) use ($search) {
-            $query->orWhere('category_name', 'like', '%' . $search . '%');
-            $query->orWhere('category_description', 'like', '%' . $search . '%');
-            $query->orWhere('category_type', 'like', '%' . $search . '%');
-        })->get()->count();
+        $total = Category::select('categories.*', 'users.name')
+            ->join('users', 'categories.created_by', '=', 'users.id')
+            ->orWhere(function ($query) use ($search) {
+                $query->orWhere('category_name', 'like', '%' . $search . '%');
+                $query->orWhere('category_description', 'like', '%' . $search . '%');
+                $query->orWhere('category_type', 'like', '%' . $search . '%');
+            })->get()->count();
 
-        $category = Category::select('categories.*' , 'users.name')
-            ->join('users' , 'categories.created_by' , '=' , 'users.id')
+        $category = Category::select('categories.*', 'users.name')
+            ->join('users', 'categories.created_by', '=', 'users.id')
             ->orWhere(function ($query) use ($search) {
                 $query->orWhere('category_name', 'like', '%' . $search . '%');
                 $query->orWhere('category_description', 'like', '%' . $search . '%');
                 $query->orWhere('category_type', 'like', '%' . $search . '%');
             })
-            ->offset($ofset)->limit($limit)->orderBy($nameOrder , $orderType)->get();
-        $i = 1 + $ofset;
-        $data = [];
+            ->offset($ofset)->limit($limit)->orderBy($nameOrder, $orderType)->get();
+        $i        = 1 + $ofset;
+        $data     = [];
         foreach ($category as $com) {
             $data[] = array(
                 $i++,
-                '<img src="'.url($com->category_icon).'" style="width: 50px; height: 50px;" class="rounded">',
+                '<img src="' . url($com->category_icon) . '" style="width: 50px; height: 50px;" class="rounded">',
                 $com->type_name,
                 $com->category_name,
                 $com->person,
-                '<button class="btn btn-sm btn-secondary">'.$com->category_status.'</button>',
+                '<button class="btn btn-sm btn-secondary">' . $com->category_status . '</button>',
                 $com->name,
-                '<a href="'.url('admin/edit-category/'.$com->id).'" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  remove-category" data-id="' . $com->id . '" title="Delete"><i class="fa fa-trash"></i></a>'
+                '<a href="' . url('admin/edit-category/' . $com->id) . '" class="btn btn-primary btn-sm" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  remove-category" data-id="' . $com->id . '" title="Delete"><i class="fa fa-trash"></i></a>'
             );
         }
-        $records['recordsTotal'] = $total;
-        $records['recordsFiltered'] =  $total;
-        $records['data'] = $data;
+        $records['recordsTotal']    = $total;
+        $records['recordsFiltered'] = $total;
+        $records['data']            = $data;
         echo json_encode($records);
     }
 
     /**
      * @return view create category
      */
-        public function getCategory($id)
+    public function getCategory($id)
     {
 
-        $cities = Category::where("type_id",$id)
-                    ->pluck('category_name','id');
+        $cities = Category::where("type_id", $id)
+            ->pluck('category_name', 'id');
         return json_encode($cities);
     }
 
-    public function create() {
-        if (!auth()->user()->can('category-create')) {
-			abort(403, 'Unauthorized action.');
-		}
-        $types = Type::where('t_status','APPROVED')->get();
-        return view('admin.category.add',compact('types'));
+    public function create()
+    {
+        if (! auth()->user()->can('category-create')) {
+            abort(403, 'Unauthorized action.');
+        }
+        $types = Type::where('t_status', 'APPROVED')->get();
+        return view('admin.category.add', compact('types'));
+    }
+
+    /**
+     * Summary of vehicle discount
+     * @return string
+     */
+    public function vehicleDiscount()
+    {
+        return 'disp';
     }
 
     /**
      * @param Request $request
      * @method use for store category data
      */
-    public function store(Request $request) {
-        if (!auth()->user()->can('category-create')) {
-			return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
-                exit;
-		}
-        $validation = Validator::make($request->all() , [
-            'category'          => 'required|unique:categories,category_name',
-            'category_status'   => 'required',
-            'description'       => 'required',
-        ]);
-
-        if($validation->fails()) {
-            return response()->json(['status' => false , 'message' => $validation->errors()->first()]);
+    public function store(Request $request)
+    {
+        if (! auth()->user()->can('category-create')) {
+            return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
             exit;
         }
-        else {
+        $validation = Validator::make($request->all(), [
+            'category'        => 'required|unique:categories,category_name',
+            'category_status' => 'required',
+            'description'     => 'required',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json(['status' => false, 'message' => $validation->errors()->first()]);
+            exit;
+        } else {
 
             // Category Image
             if ($request->file('category_image')) {
                 $fileName = '/assets/category/images/' . uniqid(time()) . '.' . $request->file('category_image')->extension();
                 $request->file('category_image')->move(public_path('assets/category/images/'), $fileName);
                 $categoryImage = $fileName;
-            }else{
+            } else {
                 $categoryImage = "";
             }
 
@@ -133,31 +145,30 @@ class CategoryController extends Controller
                 $fileNameIcon = '/assets/category/icons/' . uniqid(time()) . '.' . $request->file('category_icon')->extension();
                 $request->file('category_icon')->move(public_path('assets/category/icons/'), $fileNameIcon);
                 $icon = $fileNameIcon;
-            }else{
+            } else {
                 $icon = "";
             }
 
             $type = Type::findOrFail($request->type);
 
-            $category = new Category();
-            $input['category_name']         = $request->category;
-            $input['category_status']       = $request->category_status;
-            $input['category_description']  = $request->description;
-            $input['category_icon']         = $icon;
-            $input['category_image']        = $categoryImage;
-            $input['created_by']            = Auth::user()->id;
-            $input['person']                = $request->person;
-            $input['type_id']                = $type->id;
-            $input['type_name']                = $type->t_name;
+            $category                      = new Category();
+            $input['category_name']        = $request->category;
+            $input['category_status']      = $request->category_status;
+            $input['category_description'] = $request->description;
+            $input['category_icon']        = $icon;
+            $input['category_image']       = $categoryImage;
+            $input['created_by']           = Auth::user()->id;
+            $input['person']               = $request->person;
+            $input['type_id']              = $type->id;
+            $input['type_name']            = $type->t_name;
 
             $result = $category->fill($input)->save();
 
-            if($result) {
-                return response()->json(['status' => true , 'message' => 'Category added successfully']);
+            if ($result) {
+                return response()->json(['status' => true, 'message' => 'Category added successfully']);
                 exit;
-            }
-            else {
-                return response()->json(['status' => false , 'message' => 'Something went wrong try again later !!!']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Something went wrong try again later !!!']);
                 exit;
             }
         }
@@ -167,12 +178,13 @@ class CategoryController extends Controller
      * @param $categoryId
      * @method use for remove category
      */
-    public function destroy(Request $request) {
-        
-        if (!auth()->user()->can('category-delete')) {
-			return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
-                exit;
-		}
+    public function destroy(Request $request)
+    {
+
+        if (! auth()->user()->can('category-delete')) {
+            return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
+            exit;
+        }
         try {
             $category = Category::find($request->categoryId);
             File::delete(public_path('../' . $category->category_icon));
@@ -192,51 +204,52 @@ class CategoryController extends Controller
      * @param $categoryId
      * @return edit view
      */
-    public function edit($categoryId) {
+    public function edit($categoryId)
+    {
 
-        if (!auth()->user()->can('category-edit')) {
-			abort(403, 'Unauthorized action.');
-		}
+        if (! auth()->user()->can('category-edit')) {
+            abort(403, 'Unauthorized action.');
+        }
 
-        $types = Type::where('t_status','APPROVED')->get();
+        $types    = Type::where('t_status', 'APPROVED')->get();
         $category = Category::findOrFail($categoryId);
-        return view('admin.category.edit' , compact('category','types'));
+        return view('admin.category.edit', compact('category', 'types'));
     }
 
     /**
      * @param Request $request
      * @method use for update category
      */
-    public function update(Request $request) {
-        if (!auth()->user()->can('category-edit')) {
-			abort(403, 'Unauthorized action.');
-		}
-        $rules = [];
+    public function update(Request $request)
+    {
+        if (! auth()->user()->can('category-edit')) {
+            abort(403, 'Unauthorized action.');
+        }
+        $rules      = [];
         $checkRules = Category::findOrFail($request->categoryId);
 
-        if($checkRules->category_name != $request->category) {
+        if ($checkRules->category_name != $request->category) {
             $rules['category'] = 'required|unique:categories,category_name';
         }
-        $rules = [
-            'category_status'   => 'required',
-            'description'       => 'required',
+        $rules      = [
+            'category_status' => 'required',
+            'description'     => 'required',
         ];
-        $validation = Validator::make($request->all() , $rules);
+        $validation = Validator::make($request->all(), $rules);
 
-        if($validation->fails()) {
-            return response()->json(['status' => false , 'message' => $validation->errors()->first()]);
+        if ($validation->fails()) {
+            return response()->json(['status' => false, 'message' => $validation->errors()->first()]);
             exit;
-        }
-        else {
+        } else {
 
-            $category =Category::findOrFail($request->categoryId);
+            $category = Category::findOrFail($request->categoryId);
             // Category Image
             if ($request->file('category_image')) {
                 File::delete(public_path('../' . $category->category_image));
                 $fileName = '/assets/category/images/' . uniqid(time()) . '.' . $request->file('category_image')->extension();
                 $request->file('category_image')->move(public_path('assets/category/images/'), $fileName);
-                $categoryImage = $fileName;
-                $category->category_image        = $categoryImage;
+                $categoryImage            = $fileName;
+                $category->category_image = $categoryImage;
             }
 
             // Category Icon
@@ -244,28 +257,27 @@ class CategoryController extends Controller
                 File::delete(public_path('../' . $category->category_icon));
                 $fileNameIcon = '/assets/category/icons/' . uniqid(time()) . '.' . $request->file('category_icon')->extension();
                 $request->file('category_icon')->move(public_path('assets/category/icons/'), $fileNameIcon);
-                $icon = $fileNameIcon;
-                $category->category_icon         = $icon;
+                $icon                    = $fileNameIcon;
+                $category->category_icon = $icon;
             }
 
             $type = Type::findOrFail($request->type);
 
-            $category->category_name         = $request->category;
-            $category->category_status       = $request->category_status;
-            $category->category_description  = $request->description;
-            $category->person                = $request->person;
-            $category->type_id                = $type->id;
-            $category->type_name                = $type->t_name;
+            $category->category_name        = $request->category;
+            $category->category_status      = $request->category_status;
+            $category->category_description = $request->description;
+            $category->person               = $request->person;
+            $category->type_id              = $type->id;
+            $category->type_name            = $type->t_name;
 
 
             $update = $category->update();
 
-            if($update) {
-                return response()->json(['status' => true , 'message' => 'Category updated successfully']);
+            if ($update) {
+                return response()->json(['status' => true, 'message' => 'Category updated successfully']);
                 exit;
-            }
-            else {
-                return response()->json(['status' => false , 'message' => 'Something went wrong try again later !!!']);
+            } else {
+                return response()->json(['status' => false, 'message' => 'Something went wrong try again later !!!']);
                 exit;
             }
         }

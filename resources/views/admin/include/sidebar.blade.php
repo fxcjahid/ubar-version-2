@@ -85,6 +85,30 @@
 
             @can('vehicles')
                 <li>
+                    <a href="#vehicle-discount" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                        <i class="fa fa-car"></i>
+                        <span>Vehicles Discount</span></a>
+                    <ul class="collapse list-unstyled {{ request()->is('admin/vehicles*') ? 'show' : '' }}"
+                        id="vehicle-discount">
+                        @can('vehicle-list')
+                            <li>
+                                <a href="{{ route('admin.vehicles.list') }}">
+                                    <span>All Discount</span></a>
+                            </li>
+                        @endcan
+                        @can('vehicle-create')
+                            <li>
+                                <a href="{{ route('admin.vehicles.create') }}">
+                                    <span>Add Discount</span>
+                                </a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+            @endcan
+
+            @can('vehicles')
+                <li>
                     <a href="#vehicle" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i
                             class="fa fa-car blue2_color"></i> <span>Vehicles</span></a>
                     <ul class="collapse list-unstyled" id="vehicle">

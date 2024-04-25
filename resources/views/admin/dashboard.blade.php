@@ -322,6 +322,74 @@
                     </div>
                 </div>
 
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div class="text-center">
+                                <img src="{{ asset('assets/category/icons/chander-car.jpg') }}" class="rounded"
+                                    width="50" height="50" alt="">
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no">0</p>
+                                <p class="head_couter">Chander Car</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div class="text-center">
+                                <img src="{{ asset('assets/category/icons/helicopter.png') }}" class="rounded"
+                                    width="50" height="50" alt="">
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no">0</p>
+                                <p class="head_couter">Helicopter</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div class="text-center">
+                                <img src="{{ asset('assets/category/icons/hire-driver.png') }}" class="rounded"
+                                    width="50" height="50" alt="">
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no">0</p>
+                                <p class="head_couter">Hire Driver</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="full counter_section margin_bottom_30">
+                        <div class="couter_icon">
+                            <div class="text-center">
+                                <img src="{{ asset('assets/category/icons/selfdriving.png') }}" class="rounded"
+                                    width="50" height="50" alt="">
+                            </div>
+                        </div>
+                        <div class="counter_no">
+                            <div>
+                                <p class="total_no">0</p>
+                                <p class="head_couter">Self Driving Car</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <div class="row">
