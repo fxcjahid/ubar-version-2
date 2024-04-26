@@ -7,8 +7,9 @@
             <div class="col-md-12">
                 <div class="page_title ">
 
-                    <span><a href="{{ route('admin.user') }}"><i
-                                class="fa fa-arrow-left black"></i>Back</a>&nbsp;&nbsp;&nbsp;<h2>Add User</h2></span>
+                    <span><a href="{{ route('admin.user') }}"><i class="fa fa-arrow-left black"></i>Back</a>&nbsp;&nbsp;&nbsp;
+                        <h2>Add User</h2>
+                    </span>
                 </div>
             </div>
         </div>
@@ -43,8 +44,8 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Phone </label>
-                                            <input type="number" class="form-control"
-                                                name="phone" placeholder="Phone Number" required>
+                                            <input type="number" class="form-control" name="phone"
+                                                placeholder="Phone Number" required>
                                         </div>
                                     </div>
                                 </div>
@@ -58,6 +59,20 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Gender</label>
+                                            <select class="form-control" name="password" required>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="others">others</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-6 col-sm-12 col-md-6 col-xl-6">
                                     <div class="form-group">
                                         <div class="form-group">
@@ -77,6 +92,7 @@
                                         <img id="output" style="width: 50px; height:50px" class="rounded" />
                                     </div>
                                 </div>
+
 
                                 <div class="col-12 col-sm-12 col-md-12 col-xl-12">
                                     <div class="form-group">

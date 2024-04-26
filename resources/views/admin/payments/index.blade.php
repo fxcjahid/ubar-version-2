@@ -7,11 +7,13 @@
             <div class="col-md-12">
                 <div class="page_title ">
                     <h2>Payment List</h2>
-                    <!--@can('user-create')-->
-                    <!--<div class="float-right ">-->
-                    <!--    <a href="{{route('admin.user.create')}}" class="btn btn-sm btn-primary">Add User</a>-->
-                    <!--</div>-->
-                    <!--@endcan-->
+                    <!--@can('user-create')
+        -->
+                        <!--<div class="float-right ">-->
+                        <!--    <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-primary">Add User</a>-->
+                        <!--</div>-->
+                        <!--
+    @endcan-->
                 </div>
             </div>
         </div>
@@ -32,9 +34,10 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                       
+                                        <th>User ID</th>
+                                        <th>Payment Type</th>
                                         <th>Payment Method</th>
-                                         <th>Amount</th>
+                                        <th>Amount</th>
                                         <th>Reference No</th>
                                         <th>Mobile No</th>
                                         <th>Status</th>
@@ -89,45 +92,54 @@
                         },
                         {
                             "targets": 1,
-                            "name": "payment_method",
-                            'searchable': true,
-                            'orderable': false
-                        },
-                         {
-                            "targets": 1,
-                            "name": "amount",
+                            "name": "username",
                             'searchable': true,
                             'orderable': false
                         },
                         {
                             "targets": 2,
+                            "name": "payment_type",
+                            'searchable': true,
+                            'orderable': false
+                        },
+                        {
+                            "targets": 3,
+                            "name": "payment_method",
+                            'searchable': true,
+                            'orderable': false
+                        },
+                        {
+                            "targets": 4,
+                            "name": "amount",
+                            'searchable': true,
+                            'orderable': false
+                        },
+                        {
+                            "targets": 5,
                             "name": "transaction_no",
                             'searchable': true,
                             'orderable': true
                         },
                         {
-                            "targets": 3,
+                            "targets": 6,
                             "name": "mobile_no",
                             'searchable': true,
                             'orderable': true
                         },
-                        
-                      
-                      
                         {
-                            "targets": 4,
+                            "targets": 7,
                             "name": "status",
                             'searchable': true,
                             'orderable': true
                         },
                         {
-                            "targets": 5,
+                            "targets": 8,
                             "name": "created_at",
                             'searchable': true,
                             'orderable': true
                         },
                         {
-                            "targets": 6,
+                            "targets": 9,
                             "name": "action",
                             'searchable': false,
                             'orderable': false

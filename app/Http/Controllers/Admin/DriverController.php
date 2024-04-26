@@ -20,7 +20,7 @@ class DriverController extends Controller
     public function index()
     {
 
-        if (!auth()->user()->can('driver-list')) {
+        if (! auth()->user()->can('driver-list')) {
             abort(403, 'Unauthorized action.');
         }
         return view('admin.driver.index');
@@ -31,18 +31,18 @@ class DriverController extends Controller
      */
     public function driverListAjax(Request $request)
     {
-        if (isset ($_GET['search']['value'])) {
+        if (isset($_GET['search']['value'])) {
             $search = $_GET['search']['value'];
         } else {
             $search = '';
         }
-        if (isset ($_GET['length'])) {
+        if (isset($_GET['length'])) {
             $limit = $_GET['length'];
         } else {
             $limit = 10;
         }
 
-        if (isset ($_GET['start'])) {
+        if (isset($_GET['start'])) {
             $ofset = $_GET['start'];
         } else {
             $ofset = 0;
@@ -61,18 +61,18 @@ class DriverController extends Controller
             ->get()->count();
 
         $drivers = User::where(function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%');
-                $query->orWhere('email', 'like', '%' . $search . '%');
-                $query->orWhere('phone', 'like', '%' . $search . '%');
-            })
+            $query->orWhere('name', 'like', '%' . $search . '%');
+            $query->orWhere('email', 'like', '%' . $search . '%');
+            $query->orWhere('phone', 'like', '%' . $search . '%');
+        })
             ->where(['user_type' => "DRIVER"])
             ->offset($ofset)->limit($limit)->orderBy($nameOrder, $orderType)->with('driverDoc')->get();
-        $i = 1 + $ofset;
-        $data = [];
+        $i       = 1 + $ofset;
+        $data    = [];
         foreach ($drivers as $driver) {
-            if($driver->driverDoc && $driver->driverDoc->driver_licence_front_pic){
+            if ($driver->driverDoc && $driver->driverDoc->driver_licence_front_pic) {
                 $driver_licence_front_pic = url($driver->driverDoc->driver_licence_front_pic);
-            }else{
+            } else {
                 $driver_licence_front_pic = '';
             }
             $data[] = array(
@@ -85,12 +85,12 @@ class DriverController extends Controller
                 $driver->address,
                 '<a href="javascript:void(0)" class="btn btn-sm ' . ($driver->active == 1 ? "btn-success" : "btn-danger") . ' statusChange" data-id="' . $driver->id . '"  data-active="' . ($driver->active == 1 ? 0 : 1) . '">' . ($driver->active == 1 ? "ACTIVE" : "DE-ACTIVE") . '</a>',
                 date('d-m-Y H:i:s', strtotime($driver->created_at)),
-                '<a href="' . url('admin/edit-driver/' . $driver->id) . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  driverRemove" data-id="' . $driver->id . '" title="Delete"><i class="fa fa-trash"></i></a> | <a href="' . url('admin/edit-driver/' . $driver->id .'/docs') . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-file" ></i></a> | <a href="javascript:void(0)" class="btn btn-primary btn-sm viewImg" data-id="'.$driver->id.'" data-driver_licence_front_pic="'.$driver_licence_front_pic .'" title="Images"><i class="fa fa-image" ></i></a>'
+                '<a href="' . url('admin/edit-driver/' . $driver->id) . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  driverRemove" data-id="' . $driver->id . '" title="Delete"><i class="fa fa-trash"></i></a> | <a href="' . url('admin/edit-driver/' . $driver->id . '/docs') . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-file" ></i></a> | <a href="javascript:void(0)" class="btn btn-primary btn-sm viewImg" data-id="' . $driver->id . '" data-driver_licence_front_pic="' . $driver_licence_front_pic . '" title="Images"><i class="fa fa-image" ></i></a>'
             );
         }
-        $records['recordsTotal'] = $total;
+        $records['recordsTotal']    = $total;
         $records['recordsFiltered'] = $total;
-        $records['data'] = $data;
+        $records['data']            = $data;
         echo json_encode($records);
     }
 
@@ -99,13 +99,13 @@ class DriverController extends Controller
      */
     public function create()
     {
-        if (!auth()->user()->can('driver-create')) {
+        if (! auth()->user()->can('driver-create')) {
             abort(403, 'Unauthorized action.');
         }
 
         $services = Category::get();
-        $types = Type::get();
-        $cities = City::get();
+        $types    = Type::get();
+        $cities   = City::get();
 
         return view('admin.driver.create', compact('cities', 'types', 'services'));
     }
@@ -116,8 +116,8 @@ class DriverController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name'        => 'required',
             'last_name'         => 'nullable',
-            'phone'             => 'required|unique:users,phone,'.$user_id.',id',
-            'email'             => 'required|unique:users,email,'.$user_id.',id',
+            'phone'             => 'required|unique:users,phone,' . $user_id . ',id',
+            'email'             => 'required|unique:users,email,' . $user_id . ',id',
             'password'          => 'nullable|min:5',
             'city_id'           => 'required|exists:cities,id',
             'lat'               => 'nullable|numeric',
@@ -143,9 +143,9 @@ class DriverController extends Controller
 
         if ($validator->fails()) {
             return redirect()
-                        ->back()
-                        ->withErrors($validator)
-                        ->withInput();
+                ->back()
+                ->withErrors($validator)
+                ->withInput();
         }
 
         // Retrieve the validated input...
@@ -155,7 +155,7 @@ class DriverController extends Controller
     {
 
         // return $request;
-        if (!auth()->user()->can('driver-create')) {
+        if (! auth()->user()->can('driver-create')) {
             return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
             exit;
         }
@@ -170,8 +170,8 @@ class DriverController extends Controller
         }
 
         $validated['unique_id'] = 'DRV91' . rand(100000, 999999);
-        $validated['name'] = $validated['first_name'] . ' ' . $validated['last_name'];
-        $validated['password'] = Hash::make($validated['password']);
+        $validated['name']      = $validated['first_name'] . ' ' . $validated['last_name'];
+        $validated['password']  = Hash::make($validated['password']);
         $validated['user_type'] = "DRIVER";
 
         try {
@@ -193,14 +193,14 @@ class DriverController extends Controller
     public function statusChange(Request $request)
     {
 
-        if (!auth()->user()->can('driver-edit')) {
+        if (! auth()->user()->can('driver-edit')) {
             return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
             exit;
         }
 
         try {
-            $where = array('id' => $request->userId);
-            $data = array('active' => $request->status);
+            $where  = array('id' => $request->userId);
+            $data   = array('active' => $request->status);
             $update = User::where($where)->update($data);
             if ($update) {
                 return response()->json(array('status' => true, 'message' => "Status updated successfully"));
@@ -221,12 +221,12 @@ class DriverController extends Controller
      */
     public function reomveDriver(Request $request)
     {
-        if (!auth()->user()->can('driver-delete')) {
+        if (! auth()->user()->can('driver-delete')) {
             return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
             exit;
         }
         try {
-            $where = array('id' => $request->userId);
+            $where  = array('id' => $request->userId);
             $delete = User::where($where)->delete();
             if ($delete) {
                 return response()->json(array('status' => true, 'message' => "Driver deleted successfully"));
@@ -247,27 +247,27 @@ class DriverController extends Controller
      */
     public function edit($userId)
     {
-        if (!auth()->user()->can('driver-edit')) {
+        if (! auth()->user()->can('driver-edit')) {
             abort(403, 'Unauthorized action.');
         }
 
         $services = Category::get();
-        $types = Type::get();
-        $cities = City::get();
-        $user = User::findOrFail($userId);
+        $types    = Type::get();
+        $cities   = City::get();
+        $user     = User::findOrFail($userId);
         return view('admin.driver.edit', compact('user', 'cities', 'services', 'types'));
     }
 
     public function docs($userId)
     {
-        if (!auth()->user()->can('driver-edit')) {
+        if (! auth()->user()->can('driver-edit')) {
             abort(403, 'Unauthorized action.');
         }
 
         $services = Category::get();
-        $types = Type::get();
-        $cities = City::get();
-        $user = User::findOrFail($userId);
+        $types    = Type::get();
+        $cities   = City::get();
+        $user     = User::findOrFail($userId);
         return view('admin.driver.docs', compact('user', 'cities', 'services', 'types'));
     }
 
@@ -277,13 +277,12 @@ class DriverController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if (!auth()->user()->can('driver-edit')) {
+        if (! auth()->user()->can('driver-edit')) {
             return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
             exit;
         }
 
-        if($request->password == null)
-        {
+        if ($request->password == null) {
             $request->request->remove('password');
         }
         $validated = $this->validation($request, $user->id);
@@ -297,8 +296,7 @@ class DriverController extends Controller
 
         $validated['name'] = $validated['first_name'] . ' ' . $validated['last_name'];
 
-        if($request->password)
-        {
+        if ($request->password) {
             $validated['password'] = Hash::make($validated['password']);
         }
         try {
@@ -319,22 +317,22 @@ class DriverController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'driver_licence_front_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'driver_licence_back_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'car_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'electricity_bill_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'bank_check_book_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'car_front_side_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'car_back_side_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'car_registration_pic' => 'nullable|mimes:jpeg,jpg,png,webp',
-            'gps_tracking' => 'required',
+            'driver_licence_back_pic'  => 'nullable|mimes:jpeg,jpg,png,webp',
+            'car_pic'                  => 'nullable|mimes:jpeg,jpg,png,webp',
+            'electricity_bill_pic'     => 'nullable|mimes:jpeg,jpg,png,webp',
+            'bank_check_book_pic'      => 'nullable|mimes:jpeg,jpg,png,webp',
+            'car_front_side_pic'       => 'nullable|mimes:jpeg,jpg,png,webp',
+            'car_back_side_pic'        => 'nullable|mimes:jpeg,jpg,png,webp',
+            'car_registration_pic'     => 'nullable|mimes:jpeg,jpg,png,webp',
+            'gps_tracking'             => 'required',
         ]);
 
-        if (!auth()->user()->can('driver-edit')) {
+        if (! auth()->user()->can('driver-edit')) {
             return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
             exit;
         }
 
-       $driverdoc = DriverDoc::where('driver_id', $user->id)->first();
+        $driverdoc = DriverDoc::where('driver_id', $user->id)->first();
 
         if ($request->file('driver_licence_front_pic')) {
             if ($driverdoc && File::exists($driverdoc->driver_licence_front_pic)) {
@@ -343,7 +341,7 @@ class DriverController extends Controller
 
             $driver_licence_front_pic = '/assets/driver/document/' . uniqid(time()) . '.' . $request->file('driver_licence_front_pic')->extension();
             $request->file('driver_licence_front_pic')->move(public_path('assets/driver/document/'), $driver_licence_front_pic);
-        }else{
+        } else {
             $driver_licence_front_pic = null;
         }
 
@@ -354,7 +352,7 @@ class DriverController extends Controller
 
             $driver_licence_back_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('driver_licence_back_pic')->extension();
             $request->file('driver_licence_back_pic')->move(public_path('assets/driver/document/'), $driver_licence_back_pic);
-        }else{
+        } else {
             $driver_licence_back_pic = null;
         }
 
@@ -365,7 +363,7 @@ class DriverController extends Controller
 
             $car_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('car_pic')->extension();
             $request->file('car_pic')->move(public_path('assets/driver/document/'), $car_pic);
-        }else{
+        } else {
             $car_pic = null;
         }
 
@@ -376,7 +374,7 @@ class DriverController extends Controller
 
             $electricity_bill_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('electricity_bill_pic')->extension();
             $request->file('electricity_bill_pic')->move(public_path('assets/driver/document/'), $electricity_bill_pic);
-        }else{
+        } else {
             $electricity_bill_pic = null;
         }
 
@@ -387,7 +385,7 @@ class DriverController extends Controller
 
             $bank_check_book_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('bank_check_book_pic')->extension();
             $request->file('bank_check_book_pic')->move(public_path('assets/driver/document/'), $bank_check_book_pic);
-        }else{
+        } else {
             $bank_check_book_pic = null;
         }
 
@@ -398,7 +396,7 @@ class DriverController extends Controller
 
             $car_front_side_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('car_front_side_pic')->extension();
             $request->file('car_front_side_pic')->move(public_path('assets/driver/document/'), $car_front_side_pic);
-        }else{
+        } else {
             $car_front_side_pic = null;
         }
 
@@ -409,7 +407,7 @@ class DriverController extends Controller
 
             $car_back_side_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('car_back_side_pic')->extension();
             $request->file('car_back_side_pic')->move(public_path('assets/driver/document/'), $car_back_side_pic);
-        }else{
+        } else {
             $car_back_side_pic = null;
         }
 
@@ -420,22 +418,22 @@ class DriverController extends Controller
 
             $car_registration_pic = '/assets/user/' . uniqid(time()) . '.' . $request->file('car_registration_pic')->extension();
             $request->file('car_registration_pic')->move(public_path('assets/driver/document/'), $car_registration_pic);
-        }else{
+        } else {
             $car_registration_pic = null;
         }
 
-        if($driverdoc){
+        if ($driverdoc) {
             $driverdoc->driver_licence_front_pic = $driver_licence_front_pic;
-            $driverdoc->driver_licence_back_pic = $driver_licence_back_pic;
-            $driverdoc->car_pic = $car_pic;
-            $driverdoc->electricity_bill_pic = $electricity_bill_pic;
-            $driverdoc->bank_check_book_pic = $bank_check_book_pic;
-            $driverdoc->car_front_side_pic = $car_front_side_pic;
-            $driverdoc->car_back_side_pic = $car_back_side_pic;
-            $driverdoc->car_registration_pic = $car_registration_pic;
-            $driverdoc->gps_tracking = $request->gps_tracking;
+            $driverdoc->driver_licence_back_pic  = $driver_licence_back_pic;
+            $driverdoc->car_pic                  = $car_pic;
+            $driverdoc->electricity_bill_pic     = $electricity_bill_pic;
+            $driverdoc->bank_check_book_pic      = $bank_check_book_pic;
+            $driverdoc->car_front_side_pic       = $car_front_side_pic;
+            $driverdoc->car_back_side_pic        = $car_back_side_pic;
+            $driverdoc->car_registration_pic     = $car_registration_pic;
+            $driverdoc->gps_tracking             = $request->gps_tracking;
             $driverdoc->save();
-        }else{
+        } else {
             DriverDoc::create(['driver_id' => $user->id, 'driver_licence_front_pic' => $driver_licence_front_pic, 'driver_licence_back_pic' => $driver_licence_back_pic, 'car_pic' => $car_pic, 'electricity_bill_pic' => $electricity_bill_pic, 'bank_check_book_pic' => $bank_check_book_pic, 'car_front_side_pic' => $car_front_side_pic, 'car_back_side_pic' => $car_back_side_pic, 'car_registration_pic' => $car_registration_pic, 'gps_tracking' => $request->gps_tracking, 'cctv_sur' => 'hmm']);
         }
 
@@ -447,7 +445,7 @@ class DriverController extends Controller
      */
     public function newDriver()
     {
-        if (!auth()->user()->can('new-driver-list')) {
+        if (! auth()->user()->can('new-driver-list')) {
             abort(403, 'Unauthorized action.');
         }
         return view('admin.driver.new-driver');
@@ -458,18 +456,18 @@ class DriverController extends Controller
      */
     public function newDriverListAjax(Request $request)
     {
-        if (isset ($_GET['search']['value'])) {
+        if (isset($_GET['search']['value'])) {
             $search = $_GET['search']['value'];
         } else {
             $search = '';
         }
-        if (isset ($_GET['length'])) {
+        if (isset($_GET['length'])) {
             $limit = $_GET['length'];
         } else {
             $limit = 10;
         }
 
-        if (isset ($_GET['start'])) {
+        if (isset($_GET['start'])) {
             $ofset = $_GET['start'];
         } else {
             $ofset = 0;
@@ -497,8 +495,8 @@ class DriverController extends Controller
             ->where(['user_type' => "DRIVER"])
             ->where(['user_register_from' => "WEB"])
             ->offset($ofset)->limit($limit)->orderBy($nameOrder, $orderType)->get();
-        $i = 1 + $ofset;
-        $data = [];
+        $i       = 1 + $ofset;
+        $data    = [];
         foreach ($drivers as $driver) {
             $data[] = array(
                 $i++,
@@ -507,15 +505,16 @@ class DriverController extends Controller
                 $driver->name,
                 $driver->email,
                 $driver->phone,
+                $driver->gender,
                 $driver->address,
                 '<a href="javascript:void(0)" class="btn btn-sm ' . ($driver->active == 1 ? "btn-success" : "btn-danger") . ' statusChange" data-id="' . $driver->id . '"  data-active="' . ($driver->active == 1 ? 0 : 1) . '">' . ($driver->active == 1 ? "ACTIVE" : "DE-ACTIVE") . '</a>',
                 date('d-m-Y H:i:s', strtotime($driver->created_at)),
                 '<a href="' . url('admin/edit-driver/' . $driver->id) . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  driverRemove" data-id="' . $driver->id . '" title="Delete"><i class="fa fa-trash"></i></a>'
             );
         }
-        $records['recordsTotal'] = $total;
+        $records['recordsTotal']    = $total;
         $records['recordsFiltered'] = $total;
-        $records['data'] = $data;
+        $records['data']            = $data;
         echo json_encode($records);
     }
 }

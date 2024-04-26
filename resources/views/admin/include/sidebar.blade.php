@@ -371,14 +371,14 @@
                     </ul>
                 </li>
             @endcan
-            @can('assign-drivers')
-                <li><a href="{{ route('admin.assign.index') }}"><i class="fa fa-cog purple_color2"></i> <span>Assign
-                            Driver To Vehicles</span></a></li>
-            @endcan
 
             @can('assign-drivers')
-                <li><a href="{{ route('admin.assign.index') }}"><i class="fa fa-cog purple_color2"></i> <span>Assign
-                            Driver To Vehicles</span></a></li>
+                <li>
+                    <a href="{{ route('admin.assign.index') }}">
+                        <i class="fa fa-cog"></i>
+                        <span>Assign Driver To Vehicles</span>
+                    </a>
+                </li>
             @endcan
 
             @can('admin-send-mail')

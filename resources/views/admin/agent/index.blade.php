@@ -34,6 +34,7 @@
                                         <th>#</th>
                                         <th>Commission Type</th>
                                         <th>Commission</th>
+                                        <th>City Name</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -44,8 +45,8 @@
                     </div>
                 </div>
                 <!-- Modal -->
-                <div class="modal fade" id="commissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="commissionModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -71,7 +72,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Commission</label>
                                                 <input type="
-                                                number" step="any" min="0" class="form-control" name="commission"
+                                                number"
+                                                    step="any" min="0" class="form-control" name="commission"
                                                     placeholder="Enter Commission" required>
                                             </div>
                                         </div>
@@ -87,8 +89,8 @@
                 </div>
 
                 <!--Edit City Modal-->
-                <div class="modal fade" id="editCommissionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
+                <div class="modal fade" id="editCommissionModal" tabindex="-1" role="dialog"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -103,7 +105,8 @@
                                         <div class="col-12 col-sm-12 col-md-12 col-xl-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Commission Type</label>
-                                                <select class="form-control" name="commission_type" required id="commission_type">
+                                                <select class="form-control" name="commission_type" required
+                                                    id="commission_type">
                                                     <option value="">Select Commission Type</option>
                                                     <option value="percentage">Percentage</option>
                                                     <option value="amount">amount</option>
@@ -114,7 +117,8 @@
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Commission</label>
                                                 <input type="
-                                                number" step="any" min="0" class="form-control" name="commission"
+                                                number"
+                                                    step="any" min="0" class="form-control" name="commission"
                                                     placeholder="Enter Commission" required id="commission">
                                             </div>
                                         </div>
@@ -182,6 +186,12 @@
                         },
                         {
                             "targets": 3,
+                            "name": "city_name",
+                            'searchable': true,
+                            'orderable': true
+                        },
+                        {
+                            "targets": 4,
                             "name": "action",
                             'searchable': false,
                             'orderable': false
@@ -265,10 +275,10 @@
 
 
             // Edit City
-            $("body").on("click" , ".editCommission" , function() {
-                var id            = $(this).data('id');
-                var commission_type       = $(this).data('commission_type');
-                var commission                  = $(this).data('commission');
+            $("body").on("click", ".editCommission", function() {
+                var id = $(this).data('id');
+                var commission_type = $(this).data('commission_type');
+                var commission = $(this).data('commission');
                 $("#commission_id").val(id);
                 $("#commission_type").val(commission_type);
                 $("#commission").val(commission);

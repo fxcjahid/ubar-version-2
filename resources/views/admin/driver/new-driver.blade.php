@@ -32,6 +32,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Phone</th>
+                                        <th>Gender</th>
                                         <th>Address</th>
                                         <th>Status</th>
                                         <th>Created At</th>
@@ -115,24 +116,30 @@
                         },
                         {
                             "targets": 6,
+                            "name": "gender",
+                            'searchable': false,
+                            'orderable': true
+                        },
+                        {
+                            "targets": 7,
                             "name": "address",
                             'searchable': true,
                             'orderable': true
                         },
                         {
-                            "targets": 7,
+                            "targets": 8,
                             "name": "active",
                             'searchable': true,
                             'orderable': true
                         },
                         {
-                            "targets": 8,
+                            "targets": 9,
                             "name": "created_at",
                             'searchable': true,
                             'orderable': true
                         },
                         {
-                            "targets": 9,
+                            "targets": 10,
                             "name": "action",
                             'searchable': false,
                             'orderable': false

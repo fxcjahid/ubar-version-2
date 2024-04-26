@@ -54,6 +54,7 @@
                                         <th>Booking Hour</th>
                                         <th>Total Day</th>
                                         <th>Vehicle</th>
+                                        <th>Date</th>
                                         <th>Package</th>
                                         <th>Action</th>
                                     </tr>
@@ -88,6 +89,7 @@
                                             <td>{{ $item->total_booking_hour ?? 'N/A' }}</td>
                                             <td>{{ $item->total_day ?? 'N/A' }}</td>
                                             <td>{{ $item->category?->category_name ?? 'N/A' }}</td>
+                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
                                             <td>{{ $item->type_id ?? 'N/A' }}</td>
                                             <td>
                                                 <a href="{{ route('admin.booking.invoice', ['id' => $item->invoice_id]) }}"
