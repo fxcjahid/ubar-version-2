@@ -8,9 +8,9 @@
                 <div class="page_title">
                     <h2>Driver List</h2>
                     @can('driver-create')
-                    <div class="float-right ">
-                        <a href="{{route('admin.driver.create')}}" class="btn btn-sm btn-primary">Add Driver</a>
-                    </div>
+                        <div class="float-right ">
+                            <a href="{{ route('admin.driver.create') }}" class="btn btn-sm btn-primary">Add Driver</a>
+                        </div>
                     @endcan
                 </div>
             </div>
@@ -47,24 +47,6 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-labelledby="imgModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="imgModalLabel">Driver Documents</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="" width="100%" height="100%" id="driver_licence_front_pic" alt="">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -243,20 +225,6 @@
                 })
             })
 
-            $("body").on("click" , ".viewImg" , function() {
-                var driver_licence_front_pic    = $(this).data('driver_licence_front_pic');
-                // var start_date  = $(this).data('start_date');
-                // var end_date  = $(this).data('end_date');
-                // var percentage  = $(this).data('percentage');
-                // var couponId  = $(this).data('id');
-
-                $("#driver_licence_front_pic").attr("src", driver_licence_front_pic);
-                // $("#edit_start_date").val(start_date);
-                // $("#edit_end_date").val(end_date);
-                // $("#edit_discount").val(percentage);
-                // $("#couponId").val(couponId);
-                $("#imgModal").modal("toggle");
-            })
         });
     </script>
 @endsection

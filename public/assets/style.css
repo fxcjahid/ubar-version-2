@@ -3508,3 +3508,33 @@ table.projects tr td:first-child {
     width: auto;
     margin-right: 10px;
 }
+
+.driver-docoment {
+    margin-top: 0.5rem;
+}
+
+.driver-document-viewer {
+    margin-top: 2rem;
+}
+
+.driver-document-viewer .image-holader {
+    border-bottom: 1px dashed #f1f1f1;
+    padding-bottom: 15px;
+    margin-bottom: 45px;
+}
+
+.driver-document-viewer .image-holader .title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #010F58;
+}
+
+.driver-document-viewer .image-holader .imager {
+    margin-top: 5px;
+    width: 250px;
+}
+
+.driver-document-viewer .image-holader .imager img {
+    width: 100%;
+    height: 100%;
+}

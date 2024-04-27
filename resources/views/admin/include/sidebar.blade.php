@@ -384,11 +384,18 @@
             @can('admin-send-mail')
                 <li>
                     <a href="{{ route('admin.email.send') }}">
-                        <i class="fa fa-cog purple_color2"></i>
+                        <i class="fa fa-at"></i>
                         <span>Send Email</span>
                     </a>
                 </li>
             @endcan
+
+            <li>
+                <a href="{{ route('admin.sms.send') }}">
+                    <i class="fa fa-envelope"></i>
+                    <span>Send Bulk SMS</span>
+                </a>
+            </li>
 
             @can('admin-feedback')
                 <li class="active">

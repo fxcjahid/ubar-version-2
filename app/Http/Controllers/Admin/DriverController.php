@@ -85,13 +85,85 @@ class DriverController extends Controller
                 $driver->address,
                 '<a href="javascript:void(0)" class="btn btn-sm ' . ($driver->active == 1 ? "btn-success" : "btn-danger") . ' statusChange" data-id="' . $driver->id . '"  data-active="' . ($driver->active == 1 ? 0 : 1) . '">' . ($driver->active == 1 ? "ACTIVE" : "DE-ACTIVE") . '</a>',
                 date('d-m-Y H:i:s', strtotime($driver->created_at)),
-                '<a href="' . url('admin/edit-driver/' . $driver->id) . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  driverRemove" data-id="' . $driver->id . '" title="Delete"><i class="fa fa-trash"></i></a> | <a href="' . url('admin/edit-driver/' . $driver->id . '/docs') . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-file" ></i></a> | <a href="javascript:void(0)" class="btn btn-primary btn-sm viewImg" data-id="' . $driver->id . '" data-driver_licence_front_pic="' . $driver_licence_front_pic . '" title="Images"><i class="fa fa-image" ></i></a>'
+                '<a href="' . url('admin/edit-driver/' . $driver->id) . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  driverRemove" data-id="' . $driver->id . '" title="Delete"><i class="fa fa-trash"></i></a> | <a href="' . route('admin.driver.document.view', ['id' => $driver->id]) . '" class="btn btn-primary btn-sm viewImg" title="view document"><i class="fa fa-image" ></i></a>'
             );
         }
         $records['recordsTotal']    = $total;
         $records['recordsFiltered'] = $total;
         $records['data']            = $data;
         echo json_encode($records);
+    }
+
+    public function documentView($id)
+    {
+        $data = DriverDoc::where('driver_id', '=', $id)->firstOrFail();
+
+        $items[] = [
+            'name' => 'Driver Licence Front Picture',
+            'url'  => $data->driver_licence_front_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Driver Licence Back Picture',
+            'url'  => $data->driver_licence_back_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Car Picture',
+            'url'  => $data->car_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Car Front Side Picture',
+            'url'  => $data->car_front_side_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Car Back Side Picture',
+            'url'  => $data->car_back_side_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Car Registration Picture',
+            'url'  => $data->car_registration_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Car Tax Token Picture',
+            'url'  => $data->car_tax_token_licence,
+        ];
+
+        $items[] = [
+            'name' => 'Car Fitness Picture',
+            'url'  => $data->car_fitness_licence,
+        ];
+
+        $items[] = [
+            'name' => 'Car Insurance Picture',
+            'url'  => $data->car_insurance_licence,
+        ];
+
+        $items[] = [
+            'name' => 'Car Route Permit Picture',
+            'url'  => $data->car_insurance_licence,
+        ];
+
+        $items[] = [
+            'name' => 'Extra Picture',
+            'url'  => $data->add_extra_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Electricity Bill Picture',
+            'url'  => $data->electricity_bill_pic,
+        ];
+
+        $items[] = [
+            'name' => 'Bank Check Book Picture',
+            'url'  => $data->bank_check_book_pic,
+        ];
+
+        return view('admin.driver.document_view', compact('items'));
     }
 
     /**
@@ -151,39 +223,81 @@ class DriverController extends Controller
         // Retrieve the validated input...
         return $validator->validated();
     }
+
+    /**
+     * Summary of store driver 
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
-
-        // return $request;
+        // Check if the authenticated user has the 'driver-create' permission
         if (! auth()->user()->can('driver-create')) {
-            return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
-            exit;
+            return response()->json([
+                'status'  => false,
+                'message' => "Oops!! You don't have permission.",
+            ]);
         }
 
+        // Validate the request data
         $validated = $this->validation($request);
 
-        // Profile Image
+        // Handle profile image upload 
         if ($request->file('profile_pic')) {
             $fileName = '/assets/user/' . uniqid(time()) . '.' . $request->file('profile_pic')->extension();
             $request->file('profile_pic')->move(public_path('assets/user/'), $fileName);
             $validated['profile_pic'] = $fileName;
         }
 
-        $validated['unique_id'] = 'DRV91' . rand(100000, 999999);
-        $validated['name']      = $validated['first_name'] . ' ' . $validated['last_name'];
-        $validated['password']  = Hash::make($validated['password']);
-        $validated['user_type'] = "DRIVER";
 
+        // Merge additional fields with the validated data
+        $userData = array_merge($validated, [
+            'unique_id' => 'DRV91' . rand(100000, 999999),
+            'name'      => $validated['first_name'] . ' ' . $validated['last_name'],
+            'password'  => Hash::make($validated['password']),
+            'user_type' => "DRIVER",
+            // Add other user fields here
+        ]);
+
+        // Create the user and driver doc
         try {
-            User::create($validated);
-            return redirect()->route('admin.driver')->with(['success', 'Driver Add Successfully']);
+            tap(User::create($userData), function ($user) use ($request) {
+
+                //Created Driver Document
+
+                DriverDoc::create([
+                    'driver_id'                => $user->id,
+                    'driver_licence_front_pic' => $this->uploadFile($request->file('driver_licence_front_pic')),
+                    'driver_licence_back_pic'  => $this->uploadFile($request->file('driver_licence_back_pic')),
+                    'car_pic'                  => $this->uploadFile($request->file('car_pic')),
+                    'electricity_bill_pic'     => $this->uploadFile($request->file('electricity_bill_pic')),
+                    'bank_check_book_pic'      => $this->uploadFile($request->file('bank_check_book_pic')),
+                    'car_front_side_pic'       => $this->uploadFile($request->file('car_front_side_pic')),
+                    'car_back_side_pic'        => $this->uploadFile($request->file('car_back_side_pic')),
+                    'car_registration_pic'     => $this->uploadFile($request->file('car_registration_pic')),
+                    'gps_tracking'             => $request->gps_tracking,
+                    'cctv_sur'                 => 'hmm', // Assuming this field is always 'hmm'
+                ]);
+            });
+
+            return redirect()
+                ->route('admin.driver')
+                ->with('success', 'Driver added successfully');
+
         } catch (\Exception $e) {
-            $imagePath = public_path($validated['profile_pic']);
-            if (File::exists($imagePath)) {
-                File::delete($imagePath);
-            }
-            return redirect()->back()->with(['error', $e->getMessage()]);
+            return redirect()->back()->with('error', $e->getMessage());
         }
+    }
+
+    // Function to upload a file and return its path
+    private function uploadFile($file)
+    {
+        if ($file) {
+            $filePath = '/assets/driver/document/' . uniqid(time()) . '.' . $file->extension();
+            $file->move(public_path('assets/driver/document/'), $filePath);
+            return $filePath;
+        }
+        return null;
     }
 
     /**
@@ -279,12 +393,9 @@ class DriverController extends Controller
     {
         if (! auth()->user()->can('driver-edit')) {
             return response()->json(array('status' => false, 'message' => "Opps!! , Dont have Permission"));
-            exit;
         }
 
-        if ($request->password == null) {
-            $request->request->remove('password');
-        }
+
         $validated = $this->validation($request, $user->id);
 
         // Profile Image

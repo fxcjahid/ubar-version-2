@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CityAdmin;
 use App\Http\Controllers\Admin\Dashboard;
 use App\Http\Controllers\Admin\Permission;
 use App\Http\Controllers\Admin\SuperAdmin;
+use App\Http\Controllers\BulkSmsController;
 use App\Http\Controllers\ReferalController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ReferralController;
@@ -117,6 +118,7 @@ Route::get('new-user-list-ajax', [UserController::class, 'newUserListAjax'])->na
 // Driver Route
 Route::get('driver', [DriverController::class, 'index'])->name('admin.driver');
 Route::get('driver-list-ajax', [DriverController::class, 'driverListAjax'])->name('admin.driver.list');
+Route::get('driver/document/{id}/view', [DriverController::class, 'documentView'])->name('admin.driver.document.view');
 Route::get('create-driver', [DriverController::class, 'create'])->name('admin.driver.create');
 Route::post('store-driver', [DriverController::class, 'store'])->name('admin.driver.store');
 Route::post('driver-status-change', [DriverController::class, 'statusChange'])->name('admin.driver.status_change');
@@ -310,4 +312,16 @@ Route::prefix('vehicles')
         Route::get('list', 'index')->name('list');
         Route::get('create', 'create')->name('create');
         Route::post('create', 'store')->name('store');
+    });
+
+/** 
+ * Send Bulk SMS
+ * @author Fxc Jahid <fxcjahid3@gmail.com>
+ */
+Route::prefix('sms')
+    ->name('admin.sms.')
+    ->controller(BulkSmsController::class)
+    ->group(function () {
+        Route::get('send', 'index')->name('send');
+        Route::post('send', 'send')->name('post');
     });

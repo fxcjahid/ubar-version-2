@@ -23,7 +23,8 @@
                         </div>
                     </div>
                     <div class="padding_infor_info">
-                        <form action="{{ route('admin.driver.update', $user->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.driver.update', $user->id) }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             @include('admin.include.message')
                             <div class="row">
@@ -31,7 +32,8 @@
                                     <div class="form-group">
                                         <label for="first_name">First Name</label>
                                         <input type="text" class="form-control" name="first_name"
-                                            placeholder="Enter First Name" value="{{ old('first_name', $user->first_name) }}">
+                                            placeholder="Enter First Name"
+                                            value="{{ old('first_name', $user->first_name) }}">
                                     </div>
                                 </div>
                                 <div class="col-6 col-sm-12 col-md-6 col-xl-6">
@@ -68,12 +70,28 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="gender">Gender</label>
+                                            <select class="form-control" name="gender">
+                                                <option value="" selected>Choose One</option>
+                                                <option value="1"
+                                                    {{ old('gender', $user->gender) == 1 ? 'selected' : '' }}>Male
+                                                </option>
+                                                <option value="2"
+                                                    {{ old('gender', $user->gender) == 2 ? 'selected' : '' }}>Female
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-6 col-sm-12 col-md-6 col-xl-6">
                                     <div class="form-group">
                                         <label for="profile_pic">Profile Pic</label>
-                                        <input type="file" class="form-control" name="profile_pic" onchange="preview();">
-
-                                        <img id="output" style="width: 50px; height:50px" class="rounded" />
+                                        <input type="file" class="form-control" name="profile_pic">
                                     </div>
                                 </div>
 
@@ -96,7 +114,8 @@
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="lat">latitude</label>
-                                            <input type="text" class="form-control" name="lat" value="{{ old('lat', $user->lat) }}">
+                                            <input type="text" class="form-control" name="lat"
+                                                value="{{ old('lat', $user->lat) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -132,7 +151,8 @@
                                         <div class="form-group">
                                             <label for="app_token">App Token</label>
                                             <input type="text" class="form-control" name="app_token"
-                                                placeholder="Enter App Token"  value="{{ old('app_token', $user->app_token) }}">
+                                                placeholder="Enter App Token"
+                                                value="{{ old('app_token', $user->app_token) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -182,7 +202,8 @@
                                         <div class="form-group">
                                             <label for="car_model">Car Model</label>
                                             <input type="text" class="form-control" name="car_model"
-                                                placeholder="Enter Car Model" value="{{ old('car_model', $user->car_model) }}">
+                                                placeholder="Enter Car Model"
+                                                value="{{ old('car_model', $user->car_model) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -209,7 +230,8 @@
                                         <div class="form-group">
                                             <label for="car_number">Car Number</label>
                                             <input type="text" class="form-control" name="car_number"
-                                                placeholder="Enter Number" value="{{ old('car_number', $user->car_number) }}">
+                                                placeholder="Enter Number"
+                                                value="{{ old('car_number', $user->car_number) }}">
                                         </div>
                                     </div>
                                 </div>
@@ -219,28 +241,17 @@
                                             <label for="status">Status</label>
                                             <select class="form-control" name="status">
                                                 <option value="" selected>Choose One</option>
-                                                <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>Active
+                                                <option value="1"
+                                                    {{ old('status', $user->status) == 1 ? 'selected' : '' }}>Active
                                                 </option>
-                                                <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>Inactive
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-                                    <div class="form-group">
-                                        <div class="form-group">
-                                            <label for="gender">Gender</label>
-                                            <select class="form-control" name="gender">
-                                                <option value="" selected>Choose One</option>
-                                                <option value="1" {{ old('gender', $user->gender) == 1 ? 'selected' : '' }}>Male
-                                                </option>
-                                                <option value="2" {{ old('gender', $user->gender) == 2 ? 'selected' : '' }}>Female
+                                                <option value="0"
+                                                    {{ old('status', $user->status) == 0 ? 'selected' : '' }}>Inactive
                                                 </option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-6 col-sm-12 col-md-6 col-xl-6">
                                     <div class="form-group">
                                         <div class="form-group">
@@ -265,10 +276,128 @@
                                 <div class="col-12 col-sm-12 col-md-12 col-xl-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Address</label>
-                                        <textarea type="text" class="form-control" name="address" cols="4" rows="4">{{ old('address', $user->address) }}</textarea>
+                                        <input type="text" class="form-control" name="address"
+                                            value="{{ old('address', $user->address) }}" />
                                     </div>
                                 </div>
+
                             </div>
+
+                            <div class="driver-docoment">
+                                <div class="heading1">
+                                    <h2>Driver Documents</h2>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="driver_licence_front_pic">Licence Font Photo</label>
+                                            <input id="driver_licence_front_pic" type="file" class="form-control"
+                                                name="driver_licence_front_pic">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="driver_licence_back_pic">Licence Back Photo</label>
+                                            <input id="driver_licence_back_pic" type="file" class="form-control"
+                                                name="driver_licence_back_pic">
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="car_pic">Car Photo</label>
+                                                <input id="car_pic" type="file" class="form-control"
+                                                    name="car_pic">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="electricity_bill_pic">Electricity Bill Photo</label>
+                                                <input id="electricity_bill_pic" type="file" class="form-control"
+                                                    name="electricity_bill_pic">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <label for="bank_check_book_pic">Bank Check Book Photo</label>
+                                                <input id="bank_check_book_pic" type="file" class="form-control"
+                                                    name="bank_check_book_pic">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_front_side_pic">Car Font Side Photo</label>
+                                            <input id="car_front_side_pic" type="file" class="form-control"
+                                                name="car_front_side_pic">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_back_side_pic">Car Back Side Photo</label>
+                                            <input id="car_back_side_pic" type="file" class="form-control"
+                                                name="car_back_side_pic">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_registration_pic">Car Registration Photo</label>
+                                            <input id="car_registration_pic" type="file" class="form-control"
+                                                name="car_registration_pic">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_tax_token_licence">Car Tax Token Licence Photo</label>
+                                            <input id="car_tax_token_licence" type="file" class="form-control"
+                                                name="car_tax_token_licence">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_fitness_licence">Car Fitness Licence Photo</label>
+                                            <input id="car_fitness_licence" type="file" class="form-control"
+                                                name="car_fitness_licence">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_insurance_licence">Car Insurance Licence Photo</label>
+                                            <input id="car_insurance_licence" type="file" class="form-control"
+                                                name="car_insurance_licence">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="car_route_permit_licence">Car Route Permit Licence
+                                                Photo</label>
+                                            <input id="car_route_permit_licence" type="file" class="form-control"
+                                                name="car_route_permit_licence">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                        <div class="form-group">
+                                            <label for="add_extra_pic">Extra Photo</label>
+                                            <input id="add_extra_pic" type="file" class="form-control"
+                                                name="add_extra_pic">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
                             <div class="float-right">
                                 <button type="submit" class="btn btn-success">Save</button>
                             </div>
@@ -279,8 +408,6 @@
         </div>
     </div>
 @section('extra_js')
-    <script>
-
-    </script>
+    <script></script>
 @endsection
 @endsection

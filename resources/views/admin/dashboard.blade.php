@@ -332,7 +332,7 @@
                     <div class="counter_no">
                         <div>
                             <p class="total_no">0</p>
-                            <p class="head_couter">Chander Car</p>
+                            <p class="head_couter">Chander Gari</p>
                         </div>
                     </div>
                 </div>
@@ -595,6 +595,86 @@
                         <div>
                             <p class="total_no">1044.00</p>
                             <p class="head_couter">Total Money</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-dollar red_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">00.00</p>
+                            <p class="head_couter">Super Admin 5%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-dollar red_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">00.00</p>
+                            <p class="head_couter">Agent Office 5%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-dollar red_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">00.00</p>
+                            <p class="head_couter">App Cost 1.5%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-dollar red_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">00.00</p>
+                            <p class="head_couter">UD Fund 2%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+                <div class="full counter_section margin_bottom_30">
+                    <div class="couter_icon">
+                        <div>
+                            <i class="fa fa-dollar red_color"></i>
+                        </div>
+                    </div>
+                    <div class="counter_no">
+                        <div>
+                            <p class="total_no">00.00</p>
+                            <p class="head_couter">Offer 1.5%</p>
                         </div>
                     </div>
                 </div>

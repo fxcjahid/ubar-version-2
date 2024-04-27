@@ -25,6 +25,6 @@ class DriverDoc extends Model
         'car_route_permit_licence',
         'add_extra_pic',
         'gps_tracking',
-        'cctv_sur'
+        'cctv_sur',
     ];
 }
