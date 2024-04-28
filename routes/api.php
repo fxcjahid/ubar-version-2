@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\RideController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\dataValidation;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\SmsController;
@@ -42,7 +43,6 @@ Route::post('user/otp_verification', [UserController::class, 'otp_verification']
 Route::any('user/login', [UserController::class, 'login']);
 Route::get('user/ride-type', [UserController::class, 'rideType']);
 Route::post('user/get-category', [UserController::class, 'GetCategory']);
-Route::post('', [UserController::class, '']);
 
 Route::post('user/nearby-vehicle', [UserController::class, 'nearbyVehicle']);
 Route::any('driver/current/location', [Driver::class, 'driver_current_location'])->name('driver.current.location');
@@ -134,3 +134,11 @@ Route::prefix('referral')
     ->group(function () {
         Route::get('/', 'userReferralHistory');
     });
+
+/**
+ * Validation existsing data
+ * @since 2.0.0
+ * @author Fxc Jahid <email> 
+ */
+Route::post('validation/exists', [dataValidation::class, 'exists'])
+    ->name('data.validation.exists');
