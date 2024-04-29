@@ -63,4 +63,22 @@ class User extends Authenticatable
         return $this->hasMany(Referral::class, 'referral_code', 'referral_code')
             ->with(['referrer', 'referred']);
     }
+
+    /**
+     * Summary of get regular User
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return self::where('user_type', '=', 'USER')->get();
+    }
+
+    /**
+     * Summary of get Driver List
+     * @return mixed
+     */
+    public function getDriver()
+    {
+        return self::where('user_type', '=', 'DRIVER')->get();
+    }
 }

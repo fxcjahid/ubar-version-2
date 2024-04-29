@@ -35,8 +35,8 @@ class dataValidation extends Controller
 
         return response()->json([
             'exists'  => false,
-            'status'  => 404,
+            'status'  => 200,
             'message' => 'The data is not exists',
-        ], 404);
+        ], 200);
     }
 }

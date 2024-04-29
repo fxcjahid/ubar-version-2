@@ -24,8 +24,9 @@ class sendBulkSMSRequest extends FormRequest
     public function rules()
     {
         return [
-            'number'  => 'required|min:10|numeric',
-            'message' => 'required|max:760|min:3',
+            'sendmethod' => 'required|in:single,allUser,allDriver,bothSender',
+            'number'     => 'nullable|min:10|numeric',
+            'message'    => 'required|max:760|min:3',
         ];
     }
 }
