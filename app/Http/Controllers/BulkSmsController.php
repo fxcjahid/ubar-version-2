@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Summary of namespace App\Http\Controllers
+ * @author Fxc Jahid <fxcjahid3@gmail.com>
+ */
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -10,13 +15,22 @@ use App\Http\Requests\sendBulkSMSRequest;
 
 class BulkSmsController extends Controller
 {
-    public $postUrl = "http://api.smsinbd.com/sms-api/sendsms";
-    public $apiToken = 'Jj3kcPzoMxIWvHNY57doKQOLKsmB7Bgc85SOeCtp';
-    public $senderId = '8801969908427';
+    public $postUrl;
+    public $apiToken;
+    public $senderId;
+
+    public function __construct()
+    {
+        $this->postUrl  = env('SMS_END_POINT');
+        $this->apiToken = env('SMS_API_KEY');
+        $this->senderId = env('SMS_SENDER_ID');
+    }
 
     public function index()
     {
-        return view('admin.bulkSms.index');
+        $balance = self::checkingBalance();
+
+        return view('admin.bulkSms.index', compact('balance'));
     }
 
     /**
@@ -108,5 +122,19 @@ class BulkSmsController extends Controller
 
         // Decode the JSON response
         return $response->json();
+    }
+
+    /**
+     * Checking SMS Balance   
+     */
+    public function checkingBalance()
+    {
+        $postData = [
+            'api_token' => $this->apiToken,
+        ];
+
+        $response = Http::post('http://api.smsinbd.com/sms-api/balance', $postData);
+
+        return $response['nonmask'];
     }
 }

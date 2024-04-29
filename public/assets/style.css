@@ -3549,3 +3549,12 @@ table.projects tr td:first-child {
 #elementToToggle {
     display: none;
 }
+
+.left-balance {
+    font-size: 20px;
+    font-weight: 500;
+    color: #000c49;
+    float: right;
+    margin-top: -2rem;
+    padding-right: 0.5rem;
+}

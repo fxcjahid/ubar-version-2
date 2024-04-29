@@ -7,6 +7,9 @@
             <div class="col-md-12">
                 <div class="page_title ">
                     <h2>Send Bulk SMS</h2>
+                    <div class="left-balance">
+                        Left SMS: {{ $balance }}
+                    </div>
                 </div>
             </div>
         </div>
