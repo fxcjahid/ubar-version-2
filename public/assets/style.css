@@ -380,6 +380,10 @@ option {
     font-family: 'Poppins', sans-serif;
 }
 
+.-mt-0 {
+    margin-top: -1rem;
+}
+
 a#submit {
     z-index: 1;
 }
@@ -3557,4 +3561,19 @@ table.projects tr td:first-child {
     float: right;
     margin-top: -2rem;
     padding-right: 0.5rem;
+}
+
+.create-driver .heading {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 400;
+    color: #000b42;
+    margin-bottom: 10px;
+}
+
+.create-driver [type="checkbox"] {
+    width: auto;
+    float: left;
+    margin-top: 4px;
+    margin-right: 10px;
 }
