@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Models\City;
-use App\Models\DriverDoc;
 use App\Models\Type;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\DriverDoc;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\AdminStoreDriverRequest;
 
 class DriverController extends Controller
 {
@@ -229,37 +230,27 @@ class DriverController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return mixed|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(AdminStoreDriverRequest $request)
     {
-        // Check if the authenticated user has the 'driver-create' permission
-        if (! auth()->user()->can('driver-create')) {
-            return response()->json([
-                'status'  => false,
-                'message' => "Oops!! You don't have permission.",
-            ]);
-        }
 
-        // Validate the request data
-        $validated = $this->validation($request);
 
-        // Handle profile image upload 
-        if ($request->file('profile_pic')) {
-            $fileName = '/assets/user/' . uniqid(time()) . '.' . $request->file('profile_pic')->extension();
-            $request->file('profile_pic')->move(public_path('assets/user/'), $fileName);
-            $validated['profile_pic'] = $fileName;
-        }
+        // // Handle profile image upload 
+        // if ($request->file('profile_pic')) {
+        //     $fileName = '/assets/user/' . uniqid(time()) . '.' . $request->file('profile_pic')->extension();
+        //     $request->file('profile_pic')->move(public_path('assets/user/'), $fileName);
+        //     $validated['profile_pic'] = $fileName;
+        // }
 
 
         // Merge additional fields with the validated data
-        $userData = array_merge($validated, [
+        $userData = array_merge($request->all(), [
             'unique_id' => 'DRV91' . rand(100000, 999999),
-            'name'      => $validated['first_name'] . ' ' . $validated['last_name'],
-            'password'  => Hash::make($validated['password']),
+            'name'      => $request->first_name . ' ' . $request->last_name,
+            'password'  => Hash::make($request->password),
             'user_type' => "DRIVER",
             // Add other user fields here
         ]);
 
-        // Create the user and driver doc
         try {
             tap(User::create($userData), function ($user) use ($request) {
 

@@ -22,8 +22,15 @@
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_model_name">Car Owner Number</label>
-                <input type="text" class="form-control" name="car_owner_number">
+                <label for="car_tax_token_number">Car Owner Mobile Number</label>
+                <input type="text" class="form-control" name="car_owner_mobile_number">
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+            <div class="form-group">
+                <label for="car_tax_token_number">Car Owner NID number</label>
+                <input type="text" class="form-control" name="car_owner_nid_number">
             </div>
         </div>
 
@@ -59,6 +66,20 @@
             <div class="form-group">
                 <label for="car_engine_number">Car Engine Number</label>
                 <input type="text" class="form-control" name="car_engine_number">
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+            <div class="form-group">
+                <label for="car_cc_number">Car C.C Number</label>
+                <input type="text" class="form-control" name="car_cc_number">
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+            <div class="form-group">
+                <label for="car_seats_number">Car Seats Number</label>
+                <input type="text" class="form-control" name="car_seats_number">
             </div>
         </div>
 
@@ -117,21 +138,6 @@
                 <input type="text" class="form-control" name="car_tax_token_number">
             </div>
         </div>
-
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-            <div class="form-group">
-                <label for="car_tax_token_number">Car Owner Mobile Number</label>
-                <input type="text" class="form-control" name="car_owner_mobile_number">
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-            <div class="form-group">
-                <label for="car_tax_token_number">Car Owner NID number</label>
-                <input type="text" class="form-control" name="car_owner_nid_number">
-            </div>
-        </div>
-
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">

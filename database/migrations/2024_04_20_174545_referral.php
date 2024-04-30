@@ -24,6 +24,7 @@ class Referral extends Migration
             $table->integer('referred_id');
             $table->string('status');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->unique(['referral_code', 'referred_id']);
         });

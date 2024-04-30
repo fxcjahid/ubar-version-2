@@ -53,7 +53,7 @@
                                 <div class="col-6 col-sm-12 col-md-6 col-xl-6">
                                     <div class="form-group">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email(Username)</label>
+                                            <label for="exampleInputEmail1">Email</label>
                                             <input type="email" class="form-control" name="email"
                                                 placeholder="Enter E-mail" required>
                                         </div>
@@ -83,23 +83,34 @@
                                     </div>
                                 </div>
 
-                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Profile Pic</label>
-                                        <input type="file" class="form-control" name="profile_image"
-                                            onchange="preview();">
-
-                                        <img id="output" style="width: 50px; height:50px" class="rounded" />
-                                    </div>
-                                </div>
-
-
                                 <div class="col-12 col-sm-12 col-md-12 col-xl-12">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Address</label>
-                                        <textarea type="text" class="form-control" name="address" cols="4" rows="4"></textarea>
+                                        <textarea type="text" class="form-control" name="address" cols="4" rows="2"></textarea>
                                     </div>
                                 </div>
+
+                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Profile Picture</label>
+                                        <input type="file" class="form-control" name="profile_image">
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">Utility Bill Picture</label>
+                                        <input type="file" class="form-control" name="profile_image">
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1">NID Picture</label>
+                                        <input type="file" class="form-control" name="profile_image">
+                                    </div>
+                                </div>
+
                             </div>
 
                             <div class="float-right">

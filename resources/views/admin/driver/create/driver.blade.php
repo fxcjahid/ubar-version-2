@@ -45,8 +45,9 @@
                     <label for="gender">Gender</label>
                     <select class="form-control" name="gender">
                         <option value="" selected>Choose One</option>
-                        <option value="1">Male</option>
-                        <option value="2">Female</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="others">others</option>
                     </select>
                 </div>
             </div>
@@ -62,22 +63,7 @@
             </div>
         </div>
 
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="city_id">City</label>
-                    <select class="form-control" name="city_id">
-                        <option value="" selected>Choose One</option>
-                        @foreach ($cities as $city)
-                            <option value="{{ $city->id }}" {{ $city->id == old('city_id') ? 'selected' : '' }}>
-                                {{ $city->city }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+        {{-- <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
                     <label for="speed">Speed</label>
@@ -90,49 +76,19 @@
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
-                    <label for="lat">latitude</label>
-                    <input type="text" class="form-control" name="lat" placeholder="Enter latitude" required
-                        value="{{ old('lat') }}">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="long">longitude</label>
-                    <input type="text" class="form-control" name="long" placeholder="Enter longitude" required
-                        value="{{ old('long') }}">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-            <div class="form-group">
-                <div class="form-group">
                     <label for="heading">Heading</label>
                     <input type="text" class="form-control" name="heading" placeholder="Enter Heading" required
                         value="{{ old('heading') }}">
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
-                    <label for="app_token">App Token</label>
-                    <input type="text" class="form-control" name="app_token" placeholder="Enter App Token"
-                        required value="{{ old('first_name') }}">
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
-            <div class="form-group">
-                <div class="form-group">
-                    <label for="reset_expires">Reset Expires</label>
-                    <input type="date" class="form-control" name="reset_expires"
-                        placeholder="Enter Reset Expires" required value="{{ old('reset_expires') }}">
+                    <label for="emergency_number">Emergency Number</label>
+                    <input type="text" class="form-control" name="emergency_number"
+                        placeholder="Enter Emergency Number" required value="{{ old('emergency_number') }}">
                 </div>
             </div>
         </div>
@@ -162,8 +118,8 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="licence_number">Driver Licence Number</label>
-                    <input type="text" class="form-control" name="licence_number"
-                        placeholder="Enter Licence Number" required value="{{ old('licence_number') }}">
+                    <input type="text" class="form-control" name="licence_number" placeholder="Enter Licence Number"
+                        required value="{{ old('licence_number') }}">
                 </div>
             </div>
         </div>

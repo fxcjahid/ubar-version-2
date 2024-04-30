@@ -15,33 +15,20 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('unique_id')->unique();
+            $table->string('username')->unique();
+            $table->string('referral_code')->unique();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->bigInteger('phone')->unique();
+            $table->timestamp('phone_verified_at')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->string('username')->nullable();
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('phone')->nullable();
-            $table->string('profile_pic')->nullable();
-            $table->string('speed')->nullable();
-            $table->string('heading')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('long')->nullable();
-            $table->enum('is_online' , ['online' , 'offline'])->default('offline');
-            $table->string('app_token')->nullable();
-            $table->tinyInteger('is_phone_verified')->default(0);
-            $table->string('reset_hash')->nullable();
-            $table->string('reset_at')->nullable();
-            $table->string('reset_expires')->nullable();
-            $table->string('activate_hash')->nullable();
-            $table->tinyInteger('status')->default(0);
-            $table->text('status_message')->nullable();
-            $table->tinyInteger('active')->default(0);
-            $table->string('verification_code')->nullable();
-            $table->double('points')->nullable();
+            $table->enum('status', ['active', 'pending', 'reject'])->default('active');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
