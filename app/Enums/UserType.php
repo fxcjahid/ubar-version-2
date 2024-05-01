@@ -7,9 +7,20 @@
 
 namespace App\Enums;
 
-class UserType
+use Illuminate\Validation\Rules\Enum;
+
+final class UserType
 {
-    const ADMIN  = 'admin';
-    const USER   = 'user';
-    const DRIVER = 'driver';
+    public const ADMIN  = 'admin';
+    public const USER   = 'user';
+    public const DRIVER = 'driver';
+
+    public static function values() : array
+    {
+        return [
+            self::ADMIN,
+            self::USER,
+            self::DRIVER,
+        ];
+    }
 }

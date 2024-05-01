@@ -37,6 +37,7 @@ class User extends Authenticatable
         'phone_verified_at',
         'email',
         'password',
+        'user_type',
         'status',
     ];
 
@@ -58,7 +59,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
-        'user_type'         => UserType::class,
+        // 'user_type'         => UserType::class,
     ];
 
     protected static function boot()
@@ -101,6 +102,41 @@ class User extends Authenticatable
     public function driverDoc() : HasOne
     {
         return $this->hasOne(DriverDoc::class, 'driver_id');
+    }
+
+    /**
+     * Summary of driverInfo
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function driverInfo() : HasOne
+    {
+        return $this->hasOne(DriverInfo::class, 'user_id');
+    }
+
+    /**
+     * Summary of user info
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userInfo() : HasOne
+    {
+        return $this->hasOne(UserInfo::class, 'user_id');
+    }
+
+    /**
+     * Summary of user car info     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function car() : HasOne
+    {
+        return $this->hasOne(Car::class, 'user_id');
+    }
+
+    /**
+     * Summary of files
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function files()
+    {
+        return $this->hasMany(File::class, 'user_id');
     }
 
     /**

@@ -24,161 +24,41 @@ class DriverController extends Controller
     //
     public function index()
     {
+        $user = User::whereUserType('driver')
+            ->with('files')->get();
 
-        if (! auth()->user()->can('driver-list')) {
-            abort(403, 'Unauthorized action.');
-        }
-        return view('admin.driver.index');
+        return view('admin.driver.index', compact('user'));
     }
 
     /**
-     * @method use for show manager list ajax
+     * Summary of driver document view
+     * @param mixed $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function driverListAjax(Request $request)
+    public function view($id)
     {
-        if (isset($_GET['search']['value'])) {
-            $search = $_GET['search']['value'];
-        } else {
-            $search = '';
-        }
-        if (isset($_GET['length'])) {
-            $limit = $_GET['length'];
-        } else {
-            $limit = 10;
-        }
+        $user = User::whereUserType('driver')
+            ->whereId($id)
+            ->with([
+                'files',
+                'car',
+                'driverInfo'
+            ])
+            ->firstOrFail();
 
-        if (isset($_GET['start'])) {
-            $ofset = $_GET['start'];
-        } else {
-            $ofset = 0;
-        }
-
-        $orderType = $_GET['order'][0]['dir'];
-        $nameOrder = $_GET['columns'][$_GET['order'][0]['column']]['name'];
-
-        $total = User::select('users.*')
-            ->orWhere(function ($query) use ($search) {
-                $query->orWhere('name', 'like', '%' . $search . '%');
-                $query->orWhere('email', 'like', '%' . $search . '%');
-                $query->orWhere('phone', 'like', '%' . $search . '%');
-            })
-            ->where(['user_type' => "DRIVER"])
-            ->get()->count();
-
-        $drivers = User::where(function ($query) use ($search) {
-            $query->orWhere('name', 'like', '%' . $search . '%');
-            $query->orWhere('email', 'like', '%' . $search . '%');
-            $query->orWhere('phone', 'like', '%' . $search . '%');
-        })
-            ->where(['user_type' => "DRIVER"])
-            ->offset($ofset)->limit($limit)->orderBy($nameOrder, $orderType)->with('driverDoc')->get();
-        $i       = 1 + $ofset;
-        $data    = [];
-        foreach ($drivers as $driver) {
-            if ($driver->driverDoc && $driver->driverDoc->driver_licence_front_pic) {
-                $driver_licence_front_pic = url($driver->driverDoc->driver_licence_front_pic);
-            } else {
-                $driver_licence_front_pic = '';
-            }
-            $data[] = array(
-                $i++,
-                $driver->unique_id,
-                ($driver->profile_pic ? '<img src="' . url($driver->profile_pic) . '"  class="rounded" style="width: 50px; height: 50px;"> ' : '<img src="' . url('assets/images/profile.png') . '"  class="rounded" style="width: 50px; height: 50px;">'),
-                $driver->name,
-                $driver->email,
-                $driver->phone,
-                $driver->address,
-                '<a href="javascript:void(0)" class="btn btn-sm ' . ($driver->active == 1 ? "btn-success" : "btn-danger") . ' statusChange" data-id="' . $driver->id . '"  data-active="' . ($driver->active == 1 ? 0 : 1) . '">' . ($driver->active == 1 ? "ACTIVE" : "DE-ACTIVE") . '</a>',
-                date('d-m-Y H:i:s', strtotime($driver->created_at)),
-                '<a href="' . url('admin/edit-driver/' . $driver->id) . '" class="btn btn-primary btn-sm editCity" title="Edit"><i class="fa fa-pencil" ></i></a> | <a href="#" class="btn btn-sm btn-danger  driverRemove" data-id="' . $driver->id . '" title="Delete"><i class="fa fa-trash"></i></a> | <a href="' . route('admin.driver.document.view', ['id' => $driver->id]) . '" class="btn btn-primary btn-sm viewImg" title="view document"><i class="fa fa-image" ></i></a>'
-            );
-        }
-        $records['recordsTotal']    = $total;
-        $records['recordsFiltered'] = $total;
-        $records['data']            = $data;
-        echo json_encode($records);
-    }
-
-    public function documentView($id)
-    {
-        $data = DriverDoc::where('driver_id', '=', $id)->firstOrFail();
-
-        $items[] = [
-            'name' => 'Driver Licence Front Picture',
-            'url'  => $data->driver_licence_front_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Driver Licence Back Picture',
-            'url'  => $data->driver_licence_back_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Car Picture',
-            'url'  => $data->car_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Car Front Side Picture',
-            'url'  => $data->car_front_side_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Car Back Side Picture',
-            'url'  => $data->car_back_side_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Car Registration Picture',
-            'url'  => $data->car_registration_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Car Tax Token Picture',
-            'url'  => $data->car_tax_token_licence,
-        ];
-
-        $items[] = [
-            'name' => 'Car Fitness Picture',
-            'url'  => $data->car_fitness_licence,
-        ];
-
-        $items[] = [
-            'name' => 'Car Insurance Picture',
-            'url'  => $data->car_insurance_licence,
-        ];
-
-        $items[] = [
-            'name' => 'Car Route Permit Picture',
-            'url'  => $data->car_insurance_licence,
-        ];
-
-        $items[] = [
-            'name' => 'Extra Picture',
-            'url'  => $data->add_extra_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Electricity Bill Picture',
-            'url'  => $data->electricity_bill_pic,
-        ];
-
-        $items[] = [
-            'name' => 'Bank Check Book Picture',
-            'url'  => $data->bank_check_book_pic,
-        ];
-
-        return view('admin.driver.document_view', compact('items'));
+        $services = Category::get();
+        $types    = Type::get();
+  
+        return view('admin.driver.document.view', compact('user', 'types', 'services'));
     }
 
 
     public function create()
     {
         $services = Category::get();
-        $types    = Type::get();
-        $cities   = City::get();
+        $types    = Type::get(); 
 
-        return view('admin.driver.create', compact('cities', 'types', 'services'));
+        return view('admin.driver.create', compact('types', 'services'));
     }
 
 
@@ -232,7 +112,7 @@ class DriverController extends Controller
         // Merge additional fields
         $userData = array_merge($request->all(), [
             'password'  => Hash::make($request->password),
-            'user_type' => UserType::DRIVER,
+            'user_type' => 'driver',
         ]);
 
         try {
@@ -250,7 +130,7 @@ class DriverController extends Controller
             });
 
             return redirect()
-                ->route('admin.driver')
+                ->route('admin.driver.index')
                 ->with('success', 'Driver was created successfully.');
 
         } catch (\Exception $e) {

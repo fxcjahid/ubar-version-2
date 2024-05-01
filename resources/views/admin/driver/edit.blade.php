@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="page_title ">
 
-                    <span><a href="{{ route('admin.driver') }}"><i
+                    <span><a href="{{ route('admin.driver.index') }}"><i
                                 class="fa fa-arrow-left black"></i>Back</a>&nbsp;&nbsp;&nbsp;<h2>Edit Driver</h2></span>
                 </div>
             </div>

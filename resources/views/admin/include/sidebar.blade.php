@@ -282,14 +282,14 @@
                             class="fa fa-user blue2_color"></i> <span>Driver</span></a>
                     <ul class="collapse list-unstyled" id="driver">
                         @can('driver-list')
-                            <li><a href="{{ route('admin.driver') }}">> <span>All Driver</span></a></li>
+                            <li><a href="{{ route('admin.driver.index') }}">> <span>All Driver</span></a></li>
                         @endcan
                         @can('driver-create')
                             <li><a href="{{ route('admin.driver.create') }}">> <span>Add Driver</span></a></li>
                         @endcan
-                        @can('new-driver-list')
+                        {{-- @can('new-driver-list')
                             <li><a href="{{ route('admin.driver.new-driver') }}">> <span>New Driver List</span></a></li>
-                        @endcan
+                        @endcan --}}
                     </ul>
                 </li>
             @endcan

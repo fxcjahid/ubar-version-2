@@ -28,22 +28,47 @@
                     </div>
                     <div class="table_section padding_infor_info">
                         <div class="table-responsive-sm">
-                            <table id="all-driver-data" class="table display nowrap">
+                            <table id="driver-list-data" class="table display nowrap">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
                                         <th>ID</th>
-                                        <th>Profile</th>
                                         <th>Name</th>
-                                        <th>Email</th>
                                         <th>Phone</th>
-                                        <th>Address</th>
+                                        <th>Email</th>
                                         <th>Status</th>
+                                        <th>Profile</th>
                                         <th>Created At</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach ($user as $item)
+                                        <tr>
+                                            <td>{{ $item->id }}</td>
+                                            <td>{{ $item->name }}</td>
+                                            <td>{{ $item->phone }}</td>
+                                            <td>{{ $item->email }}</td>
+                                            <td>{{ $item->status }}</td>
+                                            <td>
+                                                @if ($item->files()->where('key', 'driver_profile_picture')->exists())
+                                                    <img src="{{ $item->files()->where('key', 'driver_profile_picture')->first()->path }}"
+                                                        alt="Profile Picture" class="profile rounded-bottom rounded-top"
+                                                        width="50px" height="50px">
+                                                @else
+                                                    <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                                                        alt="Profile Picture" class="profile rounded-bottom rounded-top"
+                                                        width="50px" height="50px">
+                                                @endif
+                                            </td>
+                                            <td>{{ $item->created_at->format('d-m-Y') }}</td>
+                                            <td>
+                                                <a href="{{ route('admin.driver.document.view', ['id' => $item->id]) }}"
+                                                    class="btn btn-primary btn-sm" title="view document">
+                                                    <i class="fa fa-image text-white"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -56,29 +81,10 @@
     <script>
         $(function() {
             $.fn.tableload = function() {
-
-                $('#all-driver-data').dataTable({
+                $('#driver-list-data').DataTable({
                     "processing": true,
-                    pageLength: 10,
-                    "serverSide": true,
-                    "bDestroy": true,
-                    'checkboxes': {
-                        'selectRow': true
-                    },
-                    "ajax": {
-                        url: "{{ route('admin.driver.list') }}",
-                        "type": "GET",
-                        "data": function(d) {
-                            d._token = "{{ csrf_token() }}";
-                        },
-                        dataFilter: function(data) {
-                            var json = jQuery.parseJSON(data);
-                            json.recordsTotal = json.recordsTotal;
-                            json.recordsFiltered = json.recordsFiltered;
-                            json.data = json.data;
-                            return JSON.stringify(json); // return JSON string
-                        }
-                    },
+                    "pageLength": 10,
+                    "destroy": true,
                     "order": [
                         [0, 'desc']
                     ],
@@ -90,141 +96,56 @@
                         },
                         {
                             "targets": 1,
-                            "name": "unique_id",
+                            "name": "name",
                             'searchable': true,
-                            'orderable': true
+                            'orderable': false
                         },
                         {
                             "targets": 2,
-                            "name": "profile_pic",
-                            'searchable': false,
+                            "name": "phone",
+                            'searchable': true,
                             'orderable': false
                         },
                         {
                             "targets": 3,
-                            "name": "name",
+                            "name": "email",
                             'searchable': true,
-                            'orderable': true
+                            'orderable': false
                         },
                         {
                             "targets": 4,
-                            "name": "email",
-                            'searchable': true,
+                            "name": "active_status",
+                            'searchable': false,
                             'orderable': true
                         },
                         {
                             "targets": 5,
-                            "name": "phone",
-                            'searchable': true,
+                            "name": "account_status",
+                            'searchable': false,
                             'orderable': true
                         },
                         {
                             "targets": 6,
-                            "name": "address",
-                            'searchable': true,
-                            'orderable': true
+                            "name": "profile",
+                            'searchable': false,
+                            'orderable': false
                         },
                         {
                             "targets": 7,
-                            "name": "active",
+                            "name": "create_date",
                             'searchable': true,
                             'orderable': true
                         },
                         {
                             "targets": 8,
-                            "name": "created_at",
-                            'searchable': true,
-                            'orderable': true
-                        },
-                        {
-                            "targets": 9,
                             "name": "action",
                             'searchable': false,
                             'orderable': false
-                        },
+                        }
                     ]
                 });
             }
             $.fn.tableload();
-
-            // User Status change process
-            $("body").on("click", ".statusChange", function(e) {
-                e.preventDefault();
-                let userId = $(this).data('id');
-                let status = $(this).data('active');
-                let fd = new FormData();
-                fd.append('userId', userId);
-                fd.append('status', status);
-                fd.append('_token', '{{ csrf_token() }}');
-                $.confirm({
-                    title: 'Confirm!',
-                    content: 'Sure you want to change status ?',
-                    buttons: {
-                        yes: function() {
-                            $.ajax({
-                                    url: "{{ route('admin.driver.status_change') }}",
-                                    type: 'POST',
-                                    data: fd,
-                                    dataType: "JSON",
-                                    contentType: false,
-                                    processData: false,
-                                })
-                                .done(function(result) {
-                                    if (result.status) {
-                                        toast.success(result.message);
-                                        $('#all-driver-data').DataTable().ajax.reload(null,
-                                            false);
-                                    } else {
-                                        toast.error(result.message);
-                                    }
-                                })
-                                .fail(function(jqXHR, exception) {
-                                    console.log(jqXHR.responseText);
-                                })
-                        },
-                        no: function() {},
-                    }
-                })
-            })
-
-            // User remove process
-            $("body").on("click", ".driverRemove", function(e) {
-                e.preventDefault();
-                let userId = $(this).data('id');
-                let fd = new FormData();
-                fd.append('userId', userId);
-                fd.append('_token', '{{ csrf_token() }}');
-                $.confirm({
-                    title: 'Confirm!',
-                    content: 'Sure you want to delete this driver ?',
-                    buttons: {
-                        yes: function() {
-                            $.ajax({
-                                    url: "{{ route('admin.driver.remove') }}",
-                                    type: 'POST',
-                                    data: fd,
-                                    dataType: "JSON",
-                                    contentType: false,
-                                    processData: false,
-                                })
-                                .done(function(result) {
-                                    if (result.status) {
-                                        toast.success(result.message);
-                                        $('#all-driver-data').DataTable().ajax.reload(null,
-                                            false);
-                                    } else {
-                                        toast.error(result.message);
-                                    }
-                                })
-                                .fail(function(jqXHR, exception) {
-                                    console.log(jqXHR.responseText);
-                                })
-                        },
-                        no: function() {},
-                    }
-                })
-            })
-
         });
     </script>
 @endsection

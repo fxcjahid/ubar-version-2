@@ -115,10 +115,21 @@ Route::post('update-user', [UserController::class, 'update'])->name('admin.user.
 Route::get('new-user', [UserController::class, 'newUserView'])->name('admin.user.new-user-list');
 Route::get('new-user-list-ajax', [UserController::class, 'newUserListAjax'])->name('admin.user.ajaxListNewUser');
 
-// Driver Route
-Route::get('driver', [DriverController::class, 'index'])->name('admin.driver');
-Route::get('driver-list-ajax', [DriverController::class, 'driverListAjax'])->name('admin.driver.list');
-Route::get('driver/document/{id}/view', [DriverController::class, 'documentView'])->name('admin.driver.document.view');
+
+/** 
+ * Driver Route
+ * @author Fxc Jahid <fxcjahid3@gmail.com>
+ */
+Route::prefix('driver')
+    ->name('admin.driver.')
+    ->controller(DriverController::class)
+    // ->middleware(['can:driver-list'])
+    ->group(function () {
+        Route::get('/', 'index')->name('index')->middleware('can:driver-list');
+        Route::get('/{id}/view', 'view')->name('document.view');
+    });
+
+
 Route::get('create-driver', [DriverController::class, 'create'])->middleware('can:driver-create')->name('admin.driver.create');
 Route::post('store-driver', [DriverController::class, 'store'])->middleware('can:driver-create')->name('admin.driver.store');
 Route::post('driver-status-change', [DriverController::class, 'statusChange'])->name('admin.driver.status_change');
@@ -127,8 +138,9 @@ Route::get('edit-driver/{driverId}', [DriverController::class, 'edit'])->name('a
 Route::get('edit-driver/{driverId}/docs', [DriverController::class, 'docs'])->name('admin.driver.docs');
 Route::post('update-driver/{user}', [DriverController::class, 'update'])->name('admin.driver.update');
 Route::post('update-driver-docs/{user}', [DriverController::class, 'updateDocs'])->name('admin.driver.update.docs');
-Route::get('new-driver', [DriverController::class, 'newDriver'])->name('admin.driver.new-driver');
-Route::get('get-new-driver-list-ajax', [DriverController::class, 'newDriverListAjax'])->name('admin.driver.newDriverListAjax');
+
+// Route::get('new-driver', [DriverController::class, 'newDriver'])->name('admin.driver.new-driver');
+// Route::get('get-new-driver-list-ajax', [DriverController::class, 'newDriverListAjax'])->name('admin.driver.newDriverListAjax');
 
 // Vehicle Route
 Route::get('vehicle', [VehicleControllers::class, 'index'])->name('admin.vehicle');

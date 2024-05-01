@@ -3581,3 +3581,28 @@ table.projects tr td:first-child {
     margin-top: 4px;
     margin-right: 10px;
 }
+
+#driver-list-data td,
+#driver-list-data th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.driver-docoment-viewer .row [class^="col-"] {
+    margin-bottom: 30px;
+}
+
+.driver-docoment-viewer p {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.driver-docoment-viewer .form-control {
+    font-size: 17.5px;
+}
+
+.driver-docoment-files img {
+    width: auto;
+    height: 130px;
+}

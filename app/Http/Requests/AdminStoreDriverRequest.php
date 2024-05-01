@@ -24,7 +24,19 @@ class AdminStoreDriverRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'first_name'         => 'required',
+            'last_name'          => 'required',
+            'phone'              => 'required|unique:users,phone',
+            'email'              => 'required|unique:users,email',
+            'gender'             => 'required',
+            'password'           => 'required',
+            'address'            => 'required',
+            'experience_in_car'  => 'required',
+            'experience_in_year' => 'required',
+            'licence_number'     => 'required',
+            'nid_number'         => 'required',
+            'owner_name'         => 'required',
+            'owner_bank_acc'     => 'required',
         ];
     }
 }

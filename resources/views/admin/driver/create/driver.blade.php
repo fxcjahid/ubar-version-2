@@ -7,7 +7,7 @@
             <div class="form-group">
                 <label for="first_name">First Name</label>
                 <input type="text" class="form-control" name="first_name" placeholder="Enter First Name" required
-                    value="{{ old('first_name') }}">
+                    value="{{ $user->first_name ?? null }}">
             </div>
         </div>
 
@@ -15,7 +15,7 @@
             <div class="form-group">
                 <label for="last_name">Last Name</label>
                 <input type="text" class="form-control" name="last_name" placeholder="Enter Last Name" required
-                    value="{{ old('last_name') }}">
+                    value="{{ $user->last_name ?? null }}">
             </div>
         </div>
 
@@ -23,8 +23,8 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="number" class="form-control" name="phone" placeholder="Phone Number" required
-                        value="{{ old('phone') }}">
+                    <input type="text" class="form-control" name="phone" placeholder="Phone Number" required
+                        value="{{ $user->phone ?? null }}">
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" placeholder="Enter E-mail" required
-                        value="" autocomplete="off">
+                        value="{{ $user->email ?? null }}" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -44,16 +44,18 @@
                 <div class="form-group">
                     <label for="gender">Gender</label>
                     <select class="form-control" name="gender" required>
-                        <option value="" selected>Choose One</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                        <option value="others">others</option>
+                        <option value="" {{ $user->userInfo->gender == '' ? 'selected' : '' }}>Choose One</option>
+                        <option value="male" {{ $user->userInfo->gender == 'male' ? 'selected' : '' }}>Male</option>
+                        <option value="female" {{ $user->userInfo->gender == 'female' ? 'selected' : '' }}>Female
+                        </option>
+                        <option value="others" {{ $user->userInfo->gender == 'others' ? 'selected' : '' }}>Others
+                        </option>
                     </select>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+        <div class="col-6 col-sm-12 col-md-6 col-xl-6 password">
             <div class="form-group">
                 <div class="form-group">
                     <label for="password">Password</label>
@@ -96,21 +98,24 @@
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" name="address" />
+                <input type="text" class="form-control" name="address"
+                    value="{{ $user->driverInfo->address ?? null }}" />
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <label for="experience_in_car">Driving Experience in (car)</label>
-                <input type="text" class="form-control" name="experience_in_car" />
+                <input type="text" class="form-control" name="experience_in_car"
+                    value="{{ $user->driverInfo->experience_in_car ?? null }}" />
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <label for="experience_in_year">Driving Experience in (year)</label>
-                <input type="text" class="form-control" name="experience_in_year" />
+                <input type="text" class="form-control" name="experience_in_year"
+                    value="{{ $user->driverInfo->experience_in_year ?? null }}" />
             </div>
         </div>
 
@@ -119,7 +124,7 @@
                 <div class="form-group">
                     <label for="licence_number">Driver Licence Number</label>
                     <input type="text" class="form-control" name="licence_number" placeholder="Enter Licence Number"
-                        required>
+                        required value="{{ $user->driverInfo->licence_number ?? null }}">
                 </div>
             </div>
         </div>
@@ -129,7 +134,7 @@
                 <div class="form-group">
                     <label for="nid_number">Driver NID Number</label>
                     <input type="text" class="form-control" name="nid_number" placeholder="Enter Licence Number"
-                        required>
+                        required value="{{ $user->driverInfo->nid_number ?? null }}">
                 </div>
             </div>
         </div>
