@@ -16,8 +16,8 @@ class DriverInfo extends Migration
         Schema::create('driver_infos', function ($table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->integer('number')->nullable();
-            $table->integer('address')->nullable();
+            $table->integer('phone')->nullable();
+            $table->string('address')->nullable();
             $table->integer('experience_in_car');
             $table->integer('experience_in_year');
             $table->integer('licence_number');

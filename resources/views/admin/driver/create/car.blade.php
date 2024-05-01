@@ -8,36 +8,36 @@
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_model_name">Car Owner Name</label>
-                <input type="text" class="form-control" name="car_owner_name">
+                <label for="owner_name">Car Owner Name</label>
+                <input type="text" class="form-control" name="owner_name">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_model_name">Car Owner Bank Acc No.</label>
-                <input type="text" class="form-control" name="car_owner_bank_number">
+                <label for="owner_bank_acc">Car Owner Bank Acc No.</label>
+                <input type="text" class="form-control" name="owner_bank_acc">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_tax_token_number">Car Owner Mobile Number</label>
-                <input type="text" class="form-control" name="car_owner_mobile_number">
+                <label for="owner_mobile_number">Car Owner Mobile Number</label>
+                <input type="text" class="form-control" name="owner_mobile_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_tax_token_number">Car Owner NID number</label>
-                <input type="text" class="form-control" name="car_owner_nid_number">
+                <label for="owner_nid_number">Car Owner NID number</label>
+                <input type="text" class="form-control" name="owner_nid_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_model_name">Car Model Name</label>
-                <input type="text" class="form-control" name="car_model_name">
+                <label for="model_name">Car Model Name</label>
+                <input type="text" class="form-control" name="model_name">
             </div>
         </div>
 
@@ -50,92 +50,92 @@
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_registration_number">Car Registration Number</label>
-                <input type="text" class="form-control" name="car_registration_number">
+                <label for="registration_number">Car Registration Number</label>
+                <input type="text" class="form-control" name="registration_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_color_name">Car Color Name</label>
-                <input type="text" class="form-control" name="car_color_name">
+                <label for="color_name">Car Color Name</label>
+                <input type="text" class="form-control" name="color_name">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_engine_number">Car Engine Number</label>
-                <input type="text" class="form-control" name="car_engine_number">
+                <label for="engine_number">Car Engine Number</label>
+                <input type="text" class="form-control" name="engine_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_cc_number">Car C.C Number</label>
-                <input type="text" class="form-control" name="car_cc_number">
+                <label for="cc_number">Car C.C Number</label>
+                <input type="text" class="form-control" name="cc_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_seats_number">Car Seats Number</label>
-                <input type="text" class="form-control" name="car_seats_number">
+                <label for="seats_number">Car Seats Number</label>
+                <input type="text" class="form-control" name="seats_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_chassize_number">Car Chassize Number</label>
-                <input type="text" class="form-control" name="car_chassize_number">
+                <label for="chassize_number">Car Chassize Number</label>
+                <input type="text" class="form-control" name="chassize_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_bluebook_number">Car Bluebook Number</label>
-                <input type="text" class="form-control" name="car_bluebook_number">
+                <label for="bluebook_number">Car Bluebook Number</label>
+                <input type="text" class="form-control" name="bluebook_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_route_permit_number">Car Route Permit Number</label>
-                <input type="text" class="form-control" name="car_route_permit_number">
+                <label for="route_permit_number">Car Route Permit Number</label>
+                <input type="text" class="form-control" name="route_permit_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_chassize_number">Car Fleetness Number</label>
-                <input type="text" class="form-control" name="car_fleetness_number">
+                <label for="fleetness_number">Car Fleetness Number</label>
+                <input type="text" class="form-control" name="fleetness_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_chassize_number">Car Fitness Ensuring Date</label>
-                <input type="text" class="form-control" name="car_fitness_ensuring_date">
+                <label for="fitness_ensuring_at">Car Fitness Ensuring Date</label>
+                <input type="text" class="form-control" name="fitness_ensuring_at">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_chassize_number">Car Fitness Expired Date</label>
-                <input type="text" class="form-control" name="car_fitness_expired_date">
+                <label for="fitness_expired_at">Car Fitness Expired Date</label>
+                <input type="text" class="form-control" name="fitness_expired_at">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_insurance_number">Car Insurance Number</label>
-                <input type="text" class="form-control" name="car_insurance_number">
+                <label for="insurance_number">Car Insurance Number</label>
+                <input type="text" class="form-control" name="insurance_number">
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="car_tax_token_number">Car Tax Token Number</label>
-                <input type="text" class="form-control" name="car_tax_token_number">
+                <label for="tax_token_number">Car Tax Token Number</label>
+                <input type="text" class="form-control" name="tax_token_number">
             </div>
         </div>
 
@@ -143,7 +143,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="ride_service">Ride Service</label>
-                    <select class="form-control" name="services">
+                    <select class="form-control" name="ride_service">
                         <option value="" selected>Choose One</option>
                         {{-- @foreach ($services as $items)
                             <option value="{{ $items->id }}" {{ old('services') == $items->id ? 'selected' : '' }}>

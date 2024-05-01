@@ -17,6 +17,7 @@ class Files extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->unsigned()->index();
             $table->string('filename')->index();
+            $table->string('key');
             $table->string('disk');
             $table->string('path');
             $table->string('extension');

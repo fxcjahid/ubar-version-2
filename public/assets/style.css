@@ -576,6 +576,10 @@ a:focus {
     letter-spacing: 0px;
 }
 
+.alert {
+    clear: both;
+}
+
 .margin_top_50 {
     margin-top: 50px;
 }

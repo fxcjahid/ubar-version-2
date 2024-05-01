@@ -22,7 +22,7 @@
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
-                    <label for="phone">Phone </label>
+                    <label for="phone">Phone Number</label>
                     <input type="number" class="form-control" name="phone" placeholder="Phone Number" required
                         value="{{ old('phone') }}">
                 </div>
@@ -43,7 +43,7 @@
             <div class="form-group">
                 <div class="form-group">
                     <label for="gender">Gender</label>
-                    <select class="form-control" name="gender">
+                    <select class="form-control" name="gender" required>
                         <option value="" selected>Choose One</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -83,7 +83,7 @@
             </div>
         </div> --}}
 
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+        {{-- <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
                     <label for="emergency_number">Emergency Number</label>
@@ -91,26 +91,26 @@
                         placeholder="Enter Emergency Number" required value="{{ old('emergency_number') }}">
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="exampleInputEmail1">Address</label>
+                <label for="address">Address</label>
                 <input type="text" class="form-control" name="address" />
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="exampleInputEmail1">Driving Experience in (car)</label>
-                <input type="text" class="form-control" name="address" />
+                <label for="experience_in_car">Driving Experience in (car)</label>
+                <input type="text" class="form-control" name="experience_in_car" />
             </div>
         </div>
 
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
-                <label for="exampleInputEmail1">Driving Experience in (year)</label>
-                <input type="text" class="form-control" name="address" />
+                <label for="experience_in_year">Driving Experience in (year)</label>
+                <input type="text" class="form-control" name="experience_in_year" />
             </div>
         </div>
 
@@ -119,7 +119,7 @@
                 <div class="form-group">
                     <label for="licence_number">Driver Licence Number</label>
                     <input type="text" class="form-control" name="licence_number" placeholder="Enter Licence Number"
-                        required value="{{ old('licence_number') }}">
+                        required>
                 </div>
             </div>
         </div>
@@ -127,14 +127,14 @@
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
-                    <label for="licence_number">Driver NID Number</label>
-                    <input type="text" class="form-control" name="licence_number"
-                        placeholder="Enter Licence Number" required value="{{ old('licence_number') }}">
+                    <label for="nid_number">Driver NID Number</label>
+                    <input type="text" class="form-control" name="nid_number" placeholder="Enter Licence Number"
+                        required>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+        {{-- <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
                     <label for="status">Status</label>
@@ -147,7 +147,7 @@
                     </select>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 </div>

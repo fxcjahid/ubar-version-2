@@ -7,6 +7,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserType;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
@@ -57,6 +58,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'phone_verified_at' => 'datetime',
+        'user_type'         => UserType::class,
     ];
 
     protected static function boot()
@@ -70,6 +72,10 @@ class User extends Authenticatable
 
             if (empty ($user->referral_code)) {
                 $user->referral_code = self::createdReferralCode();
+            }
+
+            if (empty ($user->status)) {
+                $user->status = 'active';
             }
         });
     }

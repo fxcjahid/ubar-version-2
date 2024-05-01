@@ -119,7 +119,7 @@ Route::get('new-user-list-ajax', [UserController::class, 'newUserListAjax'])->na
 Route::get('driver', [DriverController::class, 'index'])->name('admin.driver');
 Route::get('driver-list-ajax', [DriverController::class, 'driverListAjax'])->name('admin.driver.list');
 Route::get('driver/document/{id}/view', [DriverController::class, 'documentView'])->name('admin.driver.document.view');
-Route::get('create-driver', [DriverController::class, 'create'])->name('admin.driver.create');
+Route::get('create-driver', [DriverController::class, 'create'])->middleware('can:driver-create')->name('admin.driver.create');
 Route::post('store-driver', [DriverController::class, 'store'])->middleware('can:driver-create')->name('admin.driver.store');
 Route::post('driver-status-change', [DriverController::class, 'statusChange'])->name('admin.driver.status_change');
 Route::post('delete-driver', [DriverController::class, 'reomveDriver'])->name('admin.driver.remove');

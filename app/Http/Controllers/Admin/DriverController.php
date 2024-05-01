@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Car;
 use App\Models\City;
+use App\Models\File;
 use App\Models\Type;
 use App\Models\User;
+use App\Enums\UserType;
 use App\Models\Category;
+use App\Models\UserInfo;
 use App\Models\DriverDoc;
+use App\Models\DriverInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
@@ -167,15 +171,9 @@ class DriverController extends Controller
         return view('admin.driver.document_view', compact('items'));
     }
 
-    /**
-     * @return view create
-     */
+
     public function create()
     {
-        if (! auth()->user()->can('driver-create')) {
-            abort(403, 'Unauthorized action.');
-        }
-
         $services = Category::get();
         $types    = Type::get();
         $cities   = City::get();
@@ -226,69 +224,60 @@ class DriverController extends Controller
     }
 
     /**
-     * Summary of store driver 
-     * @param \Illuminate\Http\Request $request
-     * @return mixed|\Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     * Summary of store
+     * @param \App\Http\Requests\AdminStoreDriverRequest $request 
      */
     public function store(AdminStoreDriverRequest $request)
     {
-
-
-        // // Handle profile image upload 
-        // if ($request->file('profile_pic')) {
-        //     $fileName = '/assets/user/' . uniqid(time()) . '.' . $request->file('profile_pic')->extension();
-        //     $request->file('profile_pic')->move(public_path('assets/user/'), $fileName);
-        //     $validated['profile_pic'] = $fileName;
-        // }
-
-
-        // Merge additional fields with the validated data
+        // Merge additional fields
         $userData = array_merge($request->all(), [
-            'unique_id' => 'DRV91' . rand(100000, 999999),
-            'name'      => $request->first_name . ' ' . $request->last_name,
             'password'  => Hash::make($request->password),
-            'user_type' => "DRIVER",
-            // Add other user fields here
+            'user_type' => UserType::DRIVER,
         ]);
 
         try {
             tap(User::create($userData), function ($user) use ($request) {
 
-                //Created Driver Document
-
-                DriverDoc::create([
-                    'driver_id'                => $user->id,
-                    'driver_licence_front_pic' => $this->uploadFile($request->file('driver_licence_front_pic')),
-                    'driver_licence_back_pic'  => $this->uploadFile($request->file('driver_licence_back_pic')),
-                    'car_pic'                  => $this->uploadFile($request->file('car_pic')),
-                    'electricity_bill_pic'     => $this->uploadFile($request->file('electricity_bill_pic')),
-                    'bank_check_book_pic'      => $this->uploadFile($request->file('bank_check_book_pic')),
-                    'car_front_side_pic'       => $this->uploadFile($request->file('car_front_side_pic')),
-                    'car_back_side_pic'        => $this->uploadFile($request->file('car_back_side_pic')),
-                    'car_registration_pic'     => $this->uploadFile($request->file('car_registration_pic')),
-                    'gps_tracking'             => $request->gps_tracking,
-                    'cctv_sur'                 => 'hmm', // Assuming this field is always 'hmm'
+                $data = array_merge($request->all(), [
+                    'user_id' => $user->id,
                 ]);
+
+                DriverInfo::create($data);
+                UserInfo::create($data);
+                Car::create($data);
+
+                $this->handleFileUploads($request->file, $user->id);
             });
 
             return redirect()
                 ->route('admin.driver')
-                ->with('success', 'Driver added successfully');
+                ->with('success', 'Driver was created successfully.');
 
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()
+                ->back()
+                ->with('error', $e->getMessage());
         }
     }
 
-    // Function to upload a file and return its path
-    private function uploadFile($file)
+    /**
+     * Summary of handleFileUploads
+     * @param mixed $files
+     * @param mixed $userId
+     * @throws \Exception
+     * @return void
+     */
+    private function handleFileUploads($files, $userId)
     {
-        if ($file) {
-            $filePath = '/assets/driver/document/' . uniqid(time()) . '.' . $file->extension();
-            $file->move(public_path('assets/driver/document/'), $filePath);
-            return $filePath;
+        if (! empty($files) && is_array($files)) {
+            foreach ($files as $key => $file) {
+                if ($file->isValid()) {
+                    File::store($key, $userId, 'driver/document', $file);
+                } else {
+                    throw new \Exception("File upload failed for key: $key");
+                }
+            }
         }
-        return null;
     }
 
     /**
