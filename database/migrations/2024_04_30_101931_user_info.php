@@ -17,7 +17,6 @@ class UserInfo extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->unsigned()->index();
             $table->enum('gender', ['male', 'female', 'others']);
-            $table->enum('user_type', ['user', 'driver', 'admin', 'manager'])->default('user');
             $table->enum('online_status', ['online', 'offline'])->default('offline');
             $table->timestamps();
             $table->softDeletes();

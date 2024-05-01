@@ -26,10 +26,12 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->enum('user_type', ['user', 'driver', 'admin', 'manager'])->default('user');
             $table->enum('status', ['active', 'pending', 'reject'])->default('active');
             $table->timestamps();
             $table->softDeletes();
         });
+
     }
 
     /**

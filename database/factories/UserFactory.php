@@ -24,15 +24,16 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'name' => 'Super Admin',
-            'email' => 'super_admin@gmail.com',
+            'first_name'        => 'admin',
+            'last_name'         => 'panel',
+            'username'          => 'admin',
+            'phone'             => '01611223344',
+            'email'             => 'admin@gmail.com',
+            'user_type'         => 'admin',
+            'status'            => 'active',
             'email_verified_at' => now(),
-            'password' => Hash::make(123456), // password
-            'username' => 'super_admin@gmail.com',
-            'first_name' => 'Super',
-            'last_name'  => 'Admin',
-            'phone'       => '9877678677',
-            'remember_token' => Str::random(10),
+            'password'          => Hash::make(123456), // password
+            'remember_token'    => Str::random(10),
         ];
     }
 }
