@@ -29,6 +29,16 @@
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <div class="form-group">
+                    <label for="phone">Emergency Contact Number</label>
+                    <input type="text" class="form-control" name="phone" placeholder="Emergency Contact Number"
+                        required>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+            <div class="form-group">
+                <div class="form-group">
                     <label for="email">Email</label>
                     <input type="email" class="form-control" name="email" placeholder="Enter E-mail" required
                         autocomplete="off">

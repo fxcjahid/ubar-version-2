@@ -40,12 +40,23 @@
                                             placeholder="Enter Last Name" required>
                                     </div>
                                 </div>
+
                                 <div class="col-6 col-sm-12 col-md-6 col-xl-6">
                                     <div class="form-group">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Phone </label>
                                             <input type="number" class="form-control" name="phone"
                                                 placeholder="Phone Number" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-6 col-sm-12 col-md-6 col-xl-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="exampleInputEmail1">Emergency Contact Number</label>
+                                            <input type="number" class="form-control" name="phone"
+                                                placeholder="Emergency Contact Number" required>
                                         </div>
                                     </div>
                                 </div>
