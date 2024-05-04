@@ -8,9 +8,9 @@
                 <div class="page_title ">
                     <h2>Vehicle List</h2>
                     @can('vehicle-create')
-                    <div class="float-right ">
-                        <a href="{{route('admin.vehicle.create')}}" class="btn btn-sm btn-primary">Add Vehicle</a>
-                    </div>
+                        <div class="float-right ">
+                            <a href="{{ route('admin.vehicle.create') }}" class="btn btn-sm btn-primary">Add Vehicle</a>
+                        </div>
                     @endcan
                 </div>
             </div>
@@ -54,7 +54,10 @@
             </div>
         </div>
     </div>
-@section('extra_js')
+@endsection
+
+
+{{-- @section('extra_js')
     <script>
         $(function() {
             $.fn.tableload = function() {
@@ -243,5 +246,4 @@
             })
         });
     </script>
-@endsection
-@endsection
+@endsection --}}

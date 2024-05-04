@@ -417,7 +417,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $todayUser }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">New User Register </p>
                         </div>
                     </div>
@@ -433,7 +433,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $todayDriver }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">New Driver Register </p>
                         </div>
                     </div>
@@ -449,7 +449,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $totalDriver }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Total Driver </p>
                         </div>
                     </div>
@@ -465,7 +465,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $totalUser }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Total User</p>
                         </div>
                     </div>
@@ -481,7 +481,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $newManagerREG }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">New Register Manager</p>
                         </div>
                     </div>
@@ -497,7 +497,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $totalManager }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Total Manager</p>
                         </div>
                     </div>
@@ -513,7 +513,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $todayRegCityAdmin }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">New City Agent Register</p>
                         </div>
                     </div>
@@ -529,7 +529,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">{{ $totalCityAdmin }}</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Total City Agent</p>
                         </div>
                     </div>
@@ -545,7 +545,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Admin Commission</p>
                         </div>
                     </div>
@@ -561,7 +561,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">City Agent Commission</p>
                         </div>
                     </div>
@@ -577,7 +577,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Manager Commission</p>
                         </div>
                     </div>
@@ -593,7 +593,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">1044.00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Total Money</p>
                         </div>
                     </div>
@@ -609,7 +609,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00.00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Super Admin 5%</p>
                         </div>
                     </div>
@@ -625,7 +625,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00.00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Agent Office 5%</p>
                         </div>
                     </div>
@@ -641,7 +641,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00.00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">App Cost 1.5%</p>
                         </div>
                     </div>
@@ -657,7 +657,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00.00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">UD Fund 2%</p>
                         </div>
                     </div>
@@ -673,7 +673,7 @@
                     </div>
                     <div class="counter_no">
                         <div>
-                            <p class="total_no">00.00</p>
+                            <p class="total_no">0</p>
                             <p class="head_couter">Offer 1.5%</p>
                         </div>
                     </div>

@@ -186,13 +186,7 @@
         <div class="col-6 col-sm-12 col-md-6 col-xl-6">
             <div class="form-group">
                 <label for="driver_profile_picture">Driver Profile Picture</label>
-                @if ($user->files()->where('key', 'driver_licence_front_picture')->exists())
-                    <img src="{{ $user->files()->where('key', 'driver_licence_front_picture')->first()->path }}"
-                        alt="Profile Picture" class="profile rounded-bottom rounded-top" width="50px"
-                        height="50px">
-                @else
-                    <input type="file" class="form-control" name="file[driver_profile_picture]">
-                @endif
+                <input type="file" class="form-control" name="file[driver_profile_picture]">
             </div>
         </div>
 

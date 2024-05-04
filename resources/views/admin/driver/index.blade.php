@@ -7,11 +7,6 @@
             <div class="col-md-12">
                 <div class="page_title">
                     <h2>Driver List</h2>
-                    @can('driver-create')
-                        <div class="float-right ">
-                            <a href="{{ route('admin.driver.create') }}" class="btn btn-sm btn-primary">Add Driver</a>
-                        </div>
-                    @endcan
                 </div>
             </div>
         </div>

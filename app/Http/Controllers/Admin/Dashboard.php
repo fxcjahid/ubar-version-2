@@ -17,28 +17,31 @@ class Dashboard extends Controller
     public function index()
     {
 
-        $catedrivers = DB::table('categories')
-            ->join('users', function (JoinClause $join) {
-                $join->on('categories.category_name', '=', 'users.ride_service')->where('users.user_type', 'DRIVER');
-            })
-            ->select('categories.id as id', 'categories.category_name as name', 'categories.category_image as img', DB::raw("count(users.ride_service) as count"))
-            ->groupBy('categories.id')
-            ->get();
+        // $catedrivers = DB::table('categories')
+        //     ->join('users', function (JoinClause $join) {
+        //         $join->on('categories.category_name', '=', 'users.ride_service')->where('users.user_type', 'DRIVER');
+        //     })
+        //     ->select('categories.id as id', 'categories.category_name as name', 'categories.category_image as img', DB::raw("count(users.ride_service) as count"))
+        //     ->groupBy('categories.id')
+        //     ->get();
 
 
-        $totalUser         = User::where(['user_type' => 'USER'])->count();
-        $totalDriver       = User::where(['user_type' => 'DRIVER'])->count();
-        $totalManager      = User::where(['user_type' => 'MANAGER'])->count();
-        $newManagerREG     = User::whereDate('created_at', date('Y-m-d'))->where(['user_type' => 'MANAGER'])->count();
-        $totalCityAdmin    = User::where(['user_type' => 'CITYADMIN'])->count();
-        $todayRegCityAdmin = User::whereDate('created_at', date('Y-m-d'))->where(['user_type' => 'CITYADMIN'])->count();
-        $todayUser         = User::where(['user_type' => 'USER'])->whereDate('created_at', date('Y-m-d'))->count();
-        $todayDriver       = User::where(['user_type' => 'DRIVER'])->whereDate('created_at', date('Y-m-d'))->count();
-        $todayRide         = CarBooking::whereDate('created_at', date('Y-m-d'))->count();
-        $cancelledRide     = CarBooking::where(['booking_status' => 'cancelled'])->count();
-        $complatedRide     = CarBooking::where(['booking_status' => 'completed'])->count();
-        $totalRideBooking  = CarBooking::count();
-        return view('admin.dashboard', compact('totalUser', 'totalDriver', 'totalManager', 'todayUser', 'todayDriver', 'todayRide', 'cancelledRide', 'complatedRide', 'totalRideBooking', 'totalCityAdmin', 'todayRegCityAdmin', 'newManagerREG', 'catedrivers'));
+        // $totalUser         = User::where(['user_type' => 'USER'])->count();
+        // $totalDriver       = User::where(['user_type' => 'DRIVER'])->count();
+        // $totalManager      = User::where(['user_type' => 'MANAGER'])->count();
+        // $newManagerREG     = User::whereDate('created_at', date('Y-m-d'))->where(['user_type' => 'MANAGER'])->count();
+        // $totalCityAdmin    = User::where(['user_type' => 'CITYADMIN'])->count();
+        // $todayRegCityAdmin = User::whereDate('created_at', date('Y-m-d'))->where(['user_type' => 'CITYADMIN'])->count();
+        // $todayUser         = User::where(['user_type' => 'USER'])->whereDate('created_at', date('Y-m-d'))->count();
+        // $todayDriver       = User::where(['user_type' => 'DRIVER'])->whereDate('created_at', date('Y-m-d'))->count();
+        // $todayRide         = CarBooking::whereDate('created_at', date('Y-m-d'))->count();
+        // $cancelledRide     = CarBooking::where(['booking_status' => 'cancelled'])->count();
+        // $complatedRide     = CarBooking::where(['booking_status' => 'completed'])->count();
+        // $totalRideBooking  = CarBooking::count();
+
+        //compact('totalUser', 'totalDriver', 'totalManager', 'todayUser', 'todayDriver', 'todayRide', 'cancelledRide', 'complatedRide', 'totalRideBooking', 'totalCityAdmin', 'todayRegCityAdmin', 'newManagerREG', 'catedrivers')
+
+        return view('admin.dashboard');
 
     }
 

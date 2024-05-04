@@ -38,12 +38,12 @@
 
                 </li>
             @endcan
-            @can('vehicle-location')
+            {{-- @can('vehicle-location')
                 <li>
                     <a target='_blank' href="{{ route('admin.vehicle-location') }}"><i
                             class="fa fa-map-marker white_color"></i> <span>Vehicle Location</span></a>
                 </li>
-            @endcan
+            @endcan --}}
             @can('types')
 
                 <li>
@@ -270,9 +270,9 @@
                         @can('user-create')
                             <li><a href="{{ route('admin.user.create') }}">> <span>Add User</span></a></li>
                         @endcan
-                        @can('new-user-list')
+                        {{-- @can('new-user-list')
                             <li><a href="{{ route('admin.user.new-user-list') }}">> <span>New User List</span></a></li>
-                        @endcan
+                        @endcan --}}
                     </ul>
                 </li>
             @endcan
